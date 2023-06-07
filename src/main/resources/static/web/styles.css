@@ -1,0 +1,31 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+
+}
+
+.fondo-color {
+    background-color: rgb(117 117 251);
+}
+
+main {
+    background-color: rgb(227 227 227);
+    min-height: 88vh;
+    padding-bottom: 2rem;
+}
+
+.img-footer {
+    width: 30px;
+}
+
+footer {
+    min-height: 5vh;
+    padding-left: 1rem;
+    padding-right: 1rem;
+}
+
+.img-main {
+    height: 20rem;
+    object-fit: cover
+}
