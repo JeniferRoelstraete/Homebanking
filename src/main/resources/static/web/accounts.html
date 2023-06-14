@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
     <link rel="stylesheet" href="styles.css">
-    <title>Tus cuentas</title>
+    <title>Your accounts</title>
 </head>
 <body>
     <header>
@@ -23,13 +23,13 @@
           <div class="collapse navbar-collapse text-center" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
               <li class="nav-item">
-                <a class="nav-link" aria-current="page" href="#">Home</a>
+                <a class="nav-link active" aria-current="page" href="./index.html">Home</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link active" href="#">Accounts</a>
+                <a class="nav-link" href="#">Accounts</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#">Transfers</a>
+                <a class="nav-link" href="#">Transactions</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="#">Cards</a>
@@ -48,19 +48,30 @@
         </div>
       </nav>
     </header>
-<main id="app">
-    <div class="container">
-        <div class="row py-5 mx-4 align-items-center">
-            <div class="col-12 col-md-5">
-                <h4>Personal Loans</h4>
-                </p>You dream your projects, we help you achieve them</p>
-            </div>
-            <div class="col-12 col-md-7 text-md-center">
-                <img class="img-fluid img-main" src="./assets/fondo main.jpeg" alt="">
-            </div>
+<main id="app" class="pb-4">
+    <section>
+      <div id="carouselExampleAutoplaying" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-inner">
+          <div class="carousel-item active">
+            <img src="./assets/seguro_casa-transformed.jpeg" class="d-block object-fit-cover" alt="...">
+          </div>
+          <div class="carousel-item">
+            <img src="./assets/foto tarjeta credit.jpg" class="d-block object-fit-cover" alt="...">
+          </div>
+          <div class="carousel-item">
+            <img src="./assets/prestamogg.jpg" class="d-block object-fit-cover" alt="...">
+          </div>
         </div>
-    </div>
-
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Next</span>
+        </button>
+      </div>
+    </section>
     <div v-if="client">
         <div>
             <div>
@@ -80,13 +91,15 @@
                                     <th>Account number</th>
                                     <th>Creation date</th>
                                     <th class="text-right">Balance</th>
+                                    <th>Go to transactions</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr v-for="account of accounts">
                                     <td>{{account.number}}</td>
-                                    <td>{{account.creationDate}}</td>
-                                    <td class="text-right">&dollar; {{account.balance}}</td>
+                                    <td>{{formatDate(account.creationDate)}}</td>
+                                    <td class="text-right">&dollar; {{account.balance.toLocaleString()}}</td>
+                                    <td> <a class="btn btn-info" :href="'http://localhost:8080/web/account.html?id=' + account.id">transactions</a></td>
                                 </tr>
                             </tbody>
                         </table>
@@ -100,7 +113,7 @@
     </div>
 
 </main>
-<footer class="d-flex align-items-center justify-content-around gap-2">
+<footer class="d-flex align-items-center justify-content-around gap-2 bg-body-tertiary">
     <div class="d-flex gap-2">
         <a href="https://api.whatsapp.com/send?phone=numero&text=mensaje"><img class="img-footer" src="./assets/whatsapp.png" alt="logo whatsapp"></a> 
         <a href=" http://facebook.com/Tiendanube."><img class="img-footer" src="./assets/facebook (1).png" alt="logo facebook"></a>

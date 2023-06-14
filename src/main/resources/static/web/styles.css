@@ -25,7 +25,34 @@ footer {
     padding-right: 1rem;
 }
 
+.imgfondo {
+    background-image: url(./assets/3054191.jpg);
+    background-size: cover;
+}
+
 .img-main {
     height: 20rem;
     object-fit: cover
+}
+
+.greenText {
+    background-color: rgb(83, 235, 83) !important;
+    color: white !important;
+    font-weight: bold;
+}
+
+.redText {
+    background-color: rgb(247, 34, 34) !important;
+    color: white !important;
+    font-weight: bold;
+}
+
+.carousel-item img {
+    height: 50vh;
+    width: 75%;
+    margin-left: 12.5%;
+}
+
+.home-form-color {
+    background-color: #f5f5f5 !important;
 }

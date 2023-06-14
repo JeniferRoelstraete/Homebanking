@@ -17,10 +17,14 @@ const app = createApp ({
                 .then(response => {
                     this.client = response.data;
                     this.accounts = response.data.accounts.sort((account1, account2) => account1.number.localeCompare(account2.number));
-            }) .catch((error) => {
+                    console.log(this.client);
+                }) .catch((error) => {
                 console.log(error);
             })
         },
+        formatDate(date) {
+            return new Date(date).toLocaleDateString()
+        }
     },
 })
 .mount('#app')
