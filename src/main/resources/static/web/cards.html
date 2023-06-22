@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-lg bg-body-tertiary">
+            <div class="container-fluid">
+              <a class="navbar-brand" href="#">
+                <img class="align-top" src="./assets/bank.png" width="30" height="24">
+                <span class="fw-semibold">Diamond Bank</span> 
+              </a>
+              <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+              </button>
+              <div class="collapse navbar-collapse text-center" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                  <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="./index.html">Home</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="./accounts.html">Accounts</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="./account.html">Transactions</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="#">Cards</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="#">Loans</a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </nav>
+    </header>
+    <main id="app">
+      <h2 class="pt-2 pb-2 fondo-color  text-center">Credit cards</h2>
+        <div class="container">
+            <div class="circles">
+                <div class="circle circle-1"></div>
+                <div class="circle circle-2"></div>
+            </div>
+            
+            <div class="plastic-card" :class="{'gold-card-color': card.color === 'GOLD', 'silver-card-color': card.color === 'SILVER', 'titanium-card-color': card.color === 'TITANIUM'}" v-for="card of creditCards"> 
+                <div class="visa_logo">
+                    <img src="https://raw.githubusercontent.com/muhammederdem/credit-card-form/master/src/assets/images/visa.png" alt="">
+                </div>
+                <div class="visa_info">
+                    <img src="https://raw.githubusercontent.com/muhammederdem/credit-card-form/master/src/assets/images/chip.png" alt="">
+                    <p>{{card.number}}</p>
+                </div>
+                <div class="visa_crinfo">
+                    <p>{{card.thruDate}}</p>
+                    <p>{{card.cardholder}}</p>
+                </div>
+            </div>
+            <div v-if="creditCards == null || creditCards.length == 0">
+              <h2 class="onTop">You have no credit cards</h2>
+            </div>
+        </div>
+
+        <h2 class="pt-2 pb-2 fondo-color text-center">Debit cards</h2>
+        <div class="container">
+            <div class="circles">
+                <div class="circle circle-1"></div>
+                <div class="circle circle-2"></div>
+            </div>
+            
+            <div class="plastic-card" :class="{'gold-card-color': card.color ==='GOLD', 'silver-card-color': card.color === 'SILVER', 'titanium-card-color': card.color === 'TITANIUM'}" v-for="card of debitCards"> 
+                <div class="visa_logo">
+                    <img src="https://raw.githubusercontent.com/muhammederdem/credit-card-form/master/src/assets/images/visa.png" alt="">
+                </div>
+                <div class="visa_info">
+                    <img src="https://raw.githubusercontent.com/muhammederdem/credit-card-form/master/src/assets/images/chip.png" alt="">
+                    <p>{{card.number}}</p>
+                </div>
+                <div class="visa_crinfo">
+                    <p>{{card.thruDate}}</p>
+                    <p>{{card.cardholder}}</p>
+                </div>
+            </div>
+            <div v-if="debitCards == null || debitCards.length == 0">
+              <h2 class="onTop">You have no debit cards</h2>
+            </div>
+        </div>
+    </main>
+    <footer class="d-flex align-items-center justify-content-around gap-2 bg-body-tertiary">
+        <div class="d-flex gap-2">
+            <a href="https://api.whatsapp.com/send?phone=numero&text=mensaje"><img class="img-footer" src="./assets/whatsapp.png" alt="logo whatsapp"></a> 
+            <a href=" http://facebook.com/Tiendanube."><img class="img-footer" src="./assets/facebook (1).png" alt="logo facebook"></a>
+            <a href="https://www.instagram.com/"><img class="img-footer" src="./assets/instagram.png" alt="logo instagram"></a>
+        </div>
+        <p class="mb-0">© 2023 Diamond Bank Argentina S.A. All rights reserved</p>
+    </footer>
+</body>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
+    <script src="./cards.js"  ></script>
+</html>

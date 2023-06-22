@@ -2,7 +2,7 @@
     padding: 0;
     margin: 0;
     box-sizing: border-box;
-
+    font-family: "Rubik", sans-serif;
 }
 
 .fondo-color {
@@ -36,14 +36,12 @@ footer {
 }
 
 .greenText {
-    background-color: rgb(83, 235, 83) !important;
-    color: white !important;
+    color: rgb(19, 145, 19) !important;
     font-weight: bold;
 }
 
 .redText {
-    background-color: rgb(247, 34, 34) !important;
-    color: white !important;
+    color: rgb(228, 37, 37) !important;
     font-weight: bold;
 }
 
@@ -112,3 +110,74 @@ footer {
     top: -30px;
     left: -30px;
   }
+
+/* estilo de la tarjetas-card */
+
+@import url("https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;600;700&display=swap");
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #cfe2ff;
+}
+
+/* Card */
+
+.plastic-card {
+  width: 380px;
+  height: 230px;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  background: rgba(0, 0, 0, 0.4);
+  border-radius: 10px;
+  z-index: 1;
+  overflow: hidden;
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  position: relative;
+}
+
+.gold-card-color {
+    background-color: rgba(255, 221, 70, 0.4);
+}
+
+.silver-card-color {
+    background-color: rgba(194, 194, 194, 0.4);
+}
+
+.titanium-card-color {
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+.visa_logo {
+  float: right;
+  padding: 10px;
+}
+
+.visa_logo img {
+  width: 70px;
+  height: 40px;
+}
+
+.visa_info {
+  padding: 10px;
+  margin: 30px 0;
+}
+.visa_info img {
+  width: 60px;
+  height: 45px;
+}
+
+.visa_info p {
+  font-size: 22px;
+  padding: 10px 0;
+  letter-spacing: 2px;
+  color: #ffffff;
+}
+
+.visa_crinfo {
+  display: flex;
+  justify-content: space-between;
+  padding: 0 10px;
+  color: #ffffff;
+}

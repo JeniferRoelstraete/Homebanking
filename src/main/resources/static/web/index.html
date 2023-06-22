@@ -5,9 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
     <link rel="stylesheet" href="./styles.css">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <title>Home</title>
 </head>
 <body>
+  
+
     <header>
         <nav class="navbar navbar-expand-lg bg-body-tertiary">
             <div class="container-fluid">
@@ -27,16 +30,10 @@
                     <a class="nav-link active" href="./accounts.html">Accounts</a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link" href="#">Transactions</a>
+                    <a class="nav-link" href="./account.html?id=1">Transactions</a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link" href="#">Cards</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link" href="#">Payments</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link" href="#">Investments</a>
+                    <a class="nav-link" href="./cards.html">Cards</a>
                   </li>
                   <li class="nav-item">
                     <a class="nav-link" href="#">Loans</a>
@@ -66,9 +63,12 @@
               <label for="userPassword" class="form-label">Password</label>
               <input type="password" class="form-control" id="userPassword">
             </div>
-          <button type="submit" class="btn btn-primary">Login</button>
+          <button type="submit" class="transaction-button">Login</button>
         </form>
       </section>
+    </div>
+    <div> 
+      <h2 data-aos="fade-left">welcome to your homebanking</h2>
     </div>
       
     </main>
@@ -77,6 +77,8 @@
             <a href="https://api.whatsapp.com/send?phone=numero&text=mensaje"><img class="img-footer" src="./assets/whatsapp.png" alt="logo whatsapp"></a> 
             <a href=" http://facebook.com/Tiendanube."><img class="img-footer" src="./assets/facebook (1).png" alt="logo facebook"></a>
             <a href="https://www.instagram.com/"><img class="img-footer" src="./assets/instagram.png" alt="logo instagram"></a>
+            <a href="mailto:Diamond Bank"><img class="img-footer" src="./assets/email.png" alt="logo de email">Contact Us</a>
+            <a href=""><img class="img-footer" src="./assets/phone.png" alt="logo de telefono">Useful phone</a>
         </div>
         <p class="mb-0">© 2023 Diamond Bank Argentina S.A. All rights reserved</p>
     </footer>
@@ -85,5 +87,8 @@
 <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
-<script src="accounts.js"></script>
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script>
+  AOS.init();
+</script>
 </html>
