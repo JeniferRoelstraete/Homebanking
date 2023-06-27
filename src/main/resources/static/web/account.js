@@ -28,6 +28,11 @@ const app = createApp ({
         },
         formatDate(date) {
             return new Date(date).toLocaleString()
+        },
+        signOut() {
+            axios.post('/api/logout').then(response => location.href="./index.html").catch((error) => {
+                console.log(error);
+            })
         }
     },
 })

@@ -2,10 +2,12 @@ package com.mindhub.homebanking;
 
 import com.mindhub.homebanking.models.*;
 import com.mindhub.homebanking.repositories.*;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -17,14 +19,20 @@ public class HomebankingApplication {
 		SpringApplication.run(HomebankingApplication.class, args);
 	}
 
+	@Autowired
+	private PasswordEncoder passwordEnconder;
 	@Bean
-	public CommandLineRunner initData(ClientRepository clientRepository, AccountRepository accountRepository,
+	public CommandLineRunner initData(ClientRepository clientRepository,
+									  AccountRepository accountRepository,
 									  TransactionRepository transactionRepository,
-									  LoanRepository loanRepository, ClientLoanRepository clientLoanRepository, CardRepository cardRepository) {
+									  LoanRepository loanRepository,
+									  ClientLoanRepository clientLoanRepository,
+									  CardRepository cardRepository) {
 		return args -> {
 
-			Client client1 = new Client("Melba", "Morel", "melba@mindhub.com");
-			Client client2 = new Client("Juan", "Bili", "jbili@mindhub.com");
+			Client client1 = new Client("Melba", "Morel", "melba@mindhub.com", passwordEnconder.encode("3333"));
+			Client client2 = new Client("Juan", "Bili", "jbili@mindhub.com", passwordEnconder.encode("3675"));
+ 			Client admin = new Client("admin","admin","admin@gmail.com", passwordEnconder.encode("123"));
 
 			Account account1 = new Account("VIN001", LocalDate.now(), 9000.00);
 			Account account2 = new Account("VIN002", LocalDate.now().plusDays(1), 3000.00);
@@ -78,6 +86,7 @@ public class HomebankingApplication {
 
 			clientRepository.save(client1);
 			clientRepository.save(client2);
+			clientRepository.save(admin);
 
 			accountRepository.save(account1);
 			accountRepository.save(account2);
@@ -98,6 +107,7 @@ public class HomebankingApplication {
 			clientLoanRepository.saveAll(List.of(clientLoan1, clientLoan2, clientLoan3, clientLoan4));
 
 			cardRepository.saveAll(List.of(card1,card2,card3));
+
 		};
 	}
 
