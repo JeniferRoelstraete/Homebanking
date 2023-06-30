@@ -13,12 +13,18 @@ const app = createApp({
          this.debitCards = response.data.cards.filter(card => card.type === "DEBIT");
          this.creditCards = response.data.cards.filter(card => card.type === "CREDIT");
         }) .catch((error) => {
-            console.log(error);
+            alertify.alert('Error getting cards', error.message)
         })  
     }, methods: {    
         signOut() {
-            axios.post('/api/logout').then(response => location.href="./index.html").catch((error) => {
-                console.log(error);
+            axios.post('/api/logout')
+            .then(response => location.href="./index.html")
+            .catch((error) => {
+                if (error.response && error.response.data) {
+                    alertify.alert('Error creating account', error.response.data)
+                } else {
+                    alertify.alert('Error creating account', error.message)
+                }
             })
         }
     },

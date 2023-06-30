@@ -34,7 +34,7 @@ public class WebAuthorization {
 
                 .antMatchers( HttpMethod.POST, "/api/clients").permitAll()
 
-                .antMatchers("/api/clients/current").hasAuthority("CLIENT");
+                .antMatchers("/api/clients/**").hasAuthority("CLIENT");
 
 
         http.formLogin()

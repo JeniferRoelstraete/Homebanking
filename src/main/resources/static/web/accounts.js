@@ -11,19 +11,21 @@ const app = createApp ({
     },
     created(){
         alertify.set('notifier','position', 'top-center')
-        alertify.notify('Sign in successful', 'success', 10)
-        this.loadClients()
+        alertify.notify('Sign in successful', 'success', 3)
+        this.loadAccounts()
     },
     methods: {
-        loadClients() {
+        loadAccounts() {
             axios.get("http://localhost:8080/api/clients/current")
                 .then(response => {
                     this.client = response.data;
                     this.accounts = response.data.accounts.sort((account1, account2) => account1.number.localeCompare(account2.number));
                     this.loans = response.data.loans;
-                    console.log(this.client);
+                    if (this.accounts.length === 0) {
+                        this.createAccount()
+                    }
                 }) .catch((error) => {
-                console.log(error);
+                    alertify.alert('Error getting accounts', error)
             })
         },
         formatDate(date) {
@@ -33,7 +35,20 @@ const app = createApp ({
             axios.post('/api/logout')
             .then(response => location.href="./index.html")
             .catch((error) => {
-                console.log(error);
+                alertify.alert('Error in sign out', error.message)
+            })
+        },
+        createAccount(){
+            axios.post('http://localhost:8080/api/clients/current/accounts')
+            .then(response => {
+                    this.loadAccounts()
+            })
+            .catch((error) => {
+                if (error.response && error.response.data) {
+                    alertify.alert('Error creating account', error.response.data)
+                } else {
+                    alertify.alert('Error creating account', error.message)
+                }
             })
         }
     },

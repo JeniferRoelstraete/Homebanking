@@ -12,15 +12,15 @@
     <header>
         <nav class="navbar navbar-expand-lg bg-body-tertiary">
             <div class="container-fluid">
-              <a class="navbar-brand" href="#">
+              <a class="navbar-brand ms-5" href="#">
                 <img class="align-top" src="./assets/bank.png" width="30" height="24">
-                <span class="fw-semibold">Diamond Bank</span> 
+                <span class="ms-2 fw-semibold">Diamond Bank</span> 
               </a>
               <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
               </button>
-              <div class="collapse navbar-collapse text-center" id="navbarSupportedContent">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+              <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
+                <ul class="navbar-nav me-5 mb-2 mb-lg-0">
                   <li class="nav-item">
                     <a class="nav-link" href="./accounts.html">Accounts</a>
                   </li>
@@ -34,7 +34,7 @@
                     <a class="nav-link" href="#">Loans</a>
                   </li>
                 </ul>
-                <button type="button" @click="signOut()" class="btn btn-outline-primary">Sign out</button>
+                <button type="button" @click="signOut()" class="transaction-button m-0">Sign out</button>
               </div>
             </div>
           </nav>
@@ -63,47 +63,58 @@
           </button>
         </div>
       </section>
-      <h2 class="pt-2 pb-2 fondo-color text-center pt-4">Your Transactions</h2>
-        <div v-if="account">
+      <div class="container-fluid">
+        <div class="row justify-content-center">
+          <div class="col width-75">
+            <h2 class="py-2 mx-4 mt-3 fondo-color text-center rounded-2">Your Transactions</h2>
+          <div v-if="account">
             <div>
-                <div class="card mt-4 ms-4 me-4">
-                    <div class="card-header d-flex justify-content-between">
-                        <h4 class="card-title mb-0">Account {{account.number}} Transactions</h4>
-                        <h4 class="card-title mb-0">Balance ${{account.balance ? account.balance.toLocaleString() : 0}}</h4>
-                    </div>
-                        <div class="table-responsive ps">
-                            <table class="table mb-0">
-                                <thead>
-                                    <tr class="table-primary">
-                                        <th>Date</th>
-                                        <th>Description</th>
-                                        <th class="text-right">Ammount</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr class="table-primary" v-for="transaction of transactions">
-                                        <td>{{formatDate(transaction.date)}}</td>
-                                        <td>{{transaction.description}}</td>
-                                        <td  class="text-right" :class="[transaction.type === 'DEBITO' ? redColor : greenColor ]">${{transaction.ammount.toLocaleString()}}</td>
-                                    </tr>
-                                </tbody>
-                            </table>
+              <div class="card mt-4 ms-4 me-4">
+                      <div class="card-header d-flex justify-content-between">
+                          <h4 class="card-title mb-0">Account {{account.number}} Transactions</h4>
+                          <h4 class="card-title mb-0">Balance ${{account.balance ? account.balance.toLocaleString() : 0}}</h4>
                         </div>
-                </div>
-            </div>
-        </div>
-        <div v-else class="container">
+                          <div class="table-responsive ps">
+                            <table class="table mb-0">
+                                  <thead>
+                                    <tr class="table-primary">
+                                      <th>Date</th>
+                                      <th>Description</th>
+                                      <th class="text-right">Ammount</th>
+                                    </tr>
+                                  </thead>
+                                  <tbody>
+                                    <tr class="table-primary" v-for="transaction of transactions">
+                                      <td>{{formatDate(transaction.date)}}</td>
+                                      <td>{{transaction.description}}</td>
+                                      <td  class="text-right" :class="[transaction.type === 'DEBITO' ? redColor : greenColor ]">${{transaction.ammount.toLocaleString()}}</td>
+                                    </tr>
+                                  </tbody>
+                                </table>
+                              </div>
+                  </div>
+              </div>
+          </div>
+          <div v-else class="container">
             <h2>There is no data to show</h2>
+          </div>
         </div>
+      </div>
+    </div>
+      
     </main>
     <footer class="d-flex align-items-center justify-content-around gap-2 bg-body-tertiary">
-        <div class="d-flex gap-2">
-            <a href="https://api.whatsapp.com/send?phone=numero&text=mensaje"><img class="img-footer" src="./assets/whatsapp.png" alt="logo whatsapp"></a> 
-            <a href=" http://facebook.com/Tiendanube."><img class="img-footer" src="./assets/facebook (1).png" alt="logo facebook"></a>
-            <a href="https://www.instagram.com/"><img class="img-footer" src="./assets/instagram.png" alt="logo instagram"></a>
-        </div>
-        <p class="mb-0">© 2023 Diamond Bank Argentina S.A. All rights reserved</p>
-    </footer>
+      <div class="d-flex gap-2 ms-2">
+          <a href="https://api.whatsapp.com/send?phone=numero&text=mensaje"><img class="img-footer" src="./assets/whatsapp.png" alt="logo whatsapp"></a> 
+          <a href=" http://facebook.com/Tiendanube."><img class="img-footer" src="./assets/facebook (1).png" alt="logo facebook"></a>
+          <a href="https://www.instagram.com/"><img class="img-footer" src="./assets/instagram.png" alt="logo instagram"></a>
+      </div>
+      <div class="d-flex flex-grow-1 justify-content-center">
+          <a href="mailto:Diamond Bank"><img class="img-footer me-2" src="./assets/email.png" alt="logo de email">Contact Us</a>
+          <a class="ms-4" href=""><img class="img-footer me-2" src="./assets/phone.png" alt="logo de telefono">Useful phone</a>
+      </div>
+      <p class="mb-0 me-2">© 2023 Diamond Bank Argentina S.A. All rights reserved</p>
+  </footer>
   </body>
 <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>

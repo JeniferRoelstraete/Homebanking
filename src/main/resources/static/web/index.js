@@ -35,13 +35,15 @@ const app = createApp({
             axios.post('/api/clients',`firstName=${this.firstName}&lastName=${this.lastName}&email=${this.email}&password=${this.password}`,{headers:{'content-type':'application/x-www-form-urlencoded'}})
             .then(response => {
                 alertify.set('notifier','position', 'top-center')
-                alertify.notify('Registration succesful', 'success', 10)
+                alertify.notify('Registration succesful', 'success', 7)
                 this.signIn()
                 this.firstName = this.lastName = this.email = this.password = ''
             })
             .catch(error => {
                 if (error.response && error.response.data) {
                     alertify.alert('Registration error', error.response.data)
+                } else {
+                    alertify.alert('Error creating account', error.message)
                 }
             })
         }
