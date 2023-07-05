@@ -58,13 +58,13 @@ public class HomebankingApplication {
 			ClientLoan clientLoan4 = new ClientLoan(client2, loan3, 200000, 36);
 
 			Card card1 = new Card(client1.getFirstName() + " " + client1.getLastName(), CardType.DEBIT,CardColor.GOLD,
-					"6767 4533 2689 2367", (short) 214,LocalDate.now(), LocalDate.now().plusYears(5));
+					"6767-4533-2689-2367", (short) 214,LocalDate.now(), LocalDate.now().plusYears(5));
 
 			Card card2 =new Card(client1.getFirstName() + " " + client1.getLastName(), CardType.CREDIT,CardColor.TITANIUM,
-					"1298 0773 2329 2547", (short) 969,LocalDate.now(), LocalDate.now().plusYears(5));
+					"1298-0773-2329-2547", (short) 969,LocalDate.now(), LocalDate.now().plusYears(5));
 
 			Card card3 =new Card(client2.getFirstName() + " " + client2.getLastName(), CardType.CREDIT,CardColor.SILVER,
-					"8978 2273 2780 4437", (short) 444,LocalDate.now(), LocalDate.now().plusYears(5));
+					"8978-2273-2780-4437", (short) 444,LocalDate.now(), LocalDate.now().plusYears(5));
 
 
 			account1.addTransaction(transaction1);

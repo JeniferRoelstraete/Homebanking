@@ -33,7 +33,8 @@ footer {
   padding-top: 0.5rem;
   padding-bottom: 0.5rem;
   z-index: 1;
-  height: 5vh;
+  min-height: 5vh;
+  max-height: 15vh;
 }
 
 .imgfondo {
@@ -77,6 +78,19 @@ footer {
 .card-shadow {
     box-shadow:  20px 20px 60px #bebebe,
              -20px -20px 60px #ffffff;
+}
+
+.plastic-card-shadow {
+    box-shadow:  20px 20px 60px #bebebe,
+             -20px -20px 60px #5a5a5a;
+}
+
+.card-cvv {
+  font-size: small;  
+  background-color: rgba(0, 0, 0, 0.568);
+  border-radius: 5px;
+  margin-left: 2rem;
+  padding-inline: 2px;
 }
 
 .transaction-button {
@@ -149,15 +163,15 @@ footer {
 }
 
 .gold-card-color {
-    background-color: rgba(255, 221, 70, 0.4);
+    background-color: rgb(212, 175, 55);
 }
 
 .silver-card-color {
-    background-color: rgba(194, 194, 194, 0.4);
+    background-color: rgb(153, 153, 153);
 }
 
 .titanium-card-color {
-    background-color: rgba(0, 0, 0, 0.4);
+    background-color: rgba(0, 0, 0, 0.692);
 }
 
 .visa_logo {

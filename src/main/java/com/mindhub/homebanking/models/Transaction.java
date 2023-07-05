@@ -5,7 +5,6 @@ import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 
 @Entity
 public class Transaction {
@@ -20,7 +19,7 @@ public class Transaction {
 
     private TransactionType type;
 
-    private Double ammount;
+    private Double amount;
 
     private LocalDateTime date;
 
@@ -28,9 +27,9 @@ public class Transaction {
 
     public Transaction() {}
 
-    public Transaction(TransactionType type, Double ammount, LocalDateTime date, String description) {
+    public Transaction(TransactionType type, Double amount, LocalDateTime date, String description) {
         this.type = type;
-        this.ammount = ammount;
+        this.amount = amount;
         this.date = date;
         this.description = description;
     }
@@ -60,12 +59,12 @@ public class Transaction {
         this.type = type;
     }
 
-    public Double getAmmount() {
-        return ammount;
+    public Double getAmount() {
+        return amount;
     }
 
-    public void setAmmount(Double ammount) {
-        this.ammount = ammount;
+    public void setAmount(Double amount) {
+        this.amount = amount;
     }
 
     public LocalDateTime getDate() {

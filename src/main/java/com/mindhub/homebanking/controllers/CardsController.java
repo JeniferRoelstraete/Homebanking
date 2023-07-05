@@ -25,21 +25,28 @@ public class CardsController {
     private ClientRepository clientRepository;
 
     @RequestMapping(path = "/clients/current/cards", method = RequestMethod.POST)
-    public ResponseEntity<Object> register(@RequestParam CardType type,
+    public ResponseEntity<Object> createCard(@RequestParam CardType type,
                                            @RequestParam CardColor color,
-                                           Authentication authentication) {
+                                           Authentication authentication) { //crear la tarjeta para un  cliente autenticado
         Client client = clientRepository.findByEmail(authentication.getName());
-        if (client.getCards().stream().filter(card -> card.getType().equals(type)).count() == 3
-                || client.getCards().stream().filter(card -> card.getType().equals(type) && card.getColor().equals(color)).count() == 1) {
 
-            return new ResponseEntity<>("You have reached the card limit for this card type and color", HttpStatus.FORBIDDEN);
+        if (client.getCards().stream().filter(card -> card.getType().equals(type) && card.getColor().equals(color)).count() == 1) {
+            return new ResponseEntity<>("You have reached the card limit for this card type and color", HttpStatus.FORBIDDEN); //403
+                                            //alcazado el limite de tarjeta para este tipo y color.
         }
+
+        String cardNumber; //declaro una variable para que en bucle cambie su valor
+        do {
+            cardNumber = Account.getRandomNumber(0, 9999) + "-" + Account.getRandomNumber(0, 9999) + "-" + Account.getRandomNumber(0, 9999) + "-" + Account.getRandomNumber(0, 9999); // genera un numero aletario y la guardo en el la variable
+        } while (cardRepository.findByNumber(cardNumber) != null); //busca la tarjeta por numero y se fija si este numero aletario ya exite
+        //si encontro tarjeta es distinto de null, vuelve al bucle
+        //si no encontro tarjeta con ese numero, se crea tarjeta
 
         Card card = new Card(
                 client.getFirstName() + " " + client.getLastName(),
                 type,
                 color,
-                Account.getRandomNumber(0, 9999) + "-" + Account.getRandomNumber(0, 9999) + "-" + Account.getRandomNumber(0, 9999) + "-" + Account.getRandomNumber(0, 9999),
+                cardNumber,
                 (short) Account.getRandomNumber(0, 999),
                 LocalDate.now().plusYears(5),
                 LocalDate.now()
@@ -47,8 +54,9 @@ public class CardsController {
 
         client.addCard(card);
         cardRepository.save(card);
-        // clientRepository.save(client);
+        clientRepository.save(client);
 
-        return new ResponseEntity<>(HttpStatus.CREATED);
+        return new ResponseEntity<>(HttpStatus.CREATED); //201
     }
 }
+

@@ -18,7 +18,18 @@ const app = createApp ({
                     alertify.alert('Error creating account', error.message)
                 }
             })
-        }
+        },
+        signOut() {
+                    axios.post('/api/logout')
+                    .then(response => location.href="./index.html")
+                    .catch((error) => {
+                        if (error.response && error.response.data) {
+                            alertify.alert('Error creating account', error.response.data)
+                        } else {
+                            alertify.alert('Error creating account', error.message)
+                        }
+                    })
+                },
     },
 })
 .mount('#app')

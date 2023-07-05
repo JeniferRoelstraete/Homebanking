@@ -21,9 +21,6 @@ const app = createApp ({
                     this.client = response.data;
                     this.accounts = response.data.accounts.sort((account1, account2) => account1.number.localeCompare(account2.number));
                     this.loans = response.data.loans;
-                    if (this.accounts.length === 0) {
-                        this.createAccount()
-                    }
                 }) .catch((error) => {
                     alertify.alert('Error getting accounts', error)
             })
@@ -50,6 +47,9 @@ const app = createApp ({
                     alertify.alert('Error creating account', error.message)
                 }
             })
+        },
+        canCreate() {
+            return this.accounts.length < 3
         }
     },
 })

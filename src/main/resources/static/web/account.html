@@ -31,6 +31,9 @@
                     <a class="nav-link" href="./cards.html">Cards</a>
                   </li>
                   <li class="nav-item">
+                    <a class="nav-link" href="./transfers.html">Transfers</a>
+                  </li>
+                  <li class="nav-item">
                     <a class="nav-link" href="#">Loans</a>
                   </li>
                 </ul>
@@ -80,14 +83,14 @@
                                     <tr class="table-primary">
                                       <th>Date</th>
                                       <th>Description</th>
-                                      <th class="text-right">Ammount</th>
+                                      <th class="text-right">Amount</th>
                                     </tr>
                                   </thead>
                                   <tbody>
                                     <tr class="table-primary" v-for="transaction of transactions">
                                       <td>{{formatDate(transaction.date)}}</td>
                                       <td>{{transaction.description}}</td>
-                                      <td  class="text-right" :class="[transaction.type === 'DEBITO' ? redColor : greenColor ]">${{transaction.ammount.toLocaleString()}}</td>
+                                      <td  class="text-right" :class="[transaction.type === 'DEBITO' ? redColor : greenColor ]">${{transaction.amount ? transaction.amount.toLocaleString() : 0}}</td>
                                     </tr>
                                   </tbody>
                                 </table>

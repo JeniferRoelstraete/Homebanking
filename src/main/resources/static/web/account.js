@@ -19,8 +19,9 @@ const app = createApp ({
             const idParam = urlParams.get('id');
             axios.get(`http://localhost:8080/api/clients/current`)
                 .then(response => {
-                   this.account = idParam != null ? response.data.accounts.find(account => account.id.toString() === idParam) : response.data.accounts[0]
-                   this.transactions = this.account != undefined ? this.account.transactions.sort((transaction1, transaction2) => transaction2.id - transaction1.id) : []
+                    console.log(idParam);
+                    this.account = idParam != null ? response.data.accounts.find(account => account.id.toString() === idParam) : response.data.accounts[0]
+                    this.transactions = this.account != undefined ? this.account.transactions.sort((transaction1, transaction2) => transaction2.id - transaction1.id) : []
             }) .catch((error) => {
                 alertify.alert('Error loading transactions', error.message)
             })

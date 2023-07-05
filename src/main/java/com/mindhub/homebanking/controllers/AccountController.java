@@ -39,24 +39,25 @@ public class AccountController {
     }
 
     @RequestMapping(path = "/clients/current/accounts" , method = RequestMethod.POST)
-    public ResponseEntity<Object> register(Authentication authentication) {
+    public ResponseEntity<Object> createAccount(Authentication authentication) {
        Client client = clientRepository.findByEmail(authentication.getName());
 
        if (client.getAccounts().size() == 3) {
-           return new ResponseEntity<>("You have reached the account limit that you can have", HttpStatus.FORBIDDEN);
+           return new ResponseEntity<>("You have reached the account limit that you can have", HttpStatus.FORBIDDEN); //403
+                                                //alcanzaste el limite de cuenta que puede tener
        }
 
-       String accountNumber;
+       String accountNumber; //declaro una variable para que en bucle cambie su valor
        do {
-           accountNumber = "VIN-" + Account.getRandomNumber(1, 99999999);
-       } while (accountRepository.findByNumber(accountNumber) != null);
+           accountNumber = "VIN-" + Account.getRandomNumber(1, 99999999); // genera un numero aletario y la guardo en el la variable
+       } while (accountRepository.findByNumber(accountNumber) != null); //busca la cuenta por numero y se fija si este numero aletario ya existe
 
-       Account account = new Account(accountNumber, LocalDate.now(), 0);
+       Account account = new Account(accountNumber, LocalDate.now(), 0); //si no existe la creo
 
        client.addAccount(account);
        accountRepository.save(account);
-       // clientRepository.save(client);
-       return new ResponseEntity<>(HttpStatus.CREATED);
+       clientRepository.save(client);
+       return new ResponseEntity<>(HttpStatus.CREATED); //201
     }
 
 }

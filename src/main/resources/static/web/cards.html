@@ -30,6 +30,9 @@
                     <a class="nav-link active" href="#">Cards</a>
                   </li>
                   <li class="nav-item">
+                    <a class="nav-link" href="./transfers.html">Transfers</a>
+                  </li>
+                  <li class="nav-item">
                     <a class="nav-link" href="#">Loans</a>
                   </li>
                 </ul>
@@ -38,21 +41,17 @@
             </div>
           </nav>
     </header>
-    <main>
-      <h2 class="pt-2 pb-2 fondo-color text-center">Credit cards</h2>
-        <div class="d-flex justify-content-center my-5 py-5 gap-2">
-            <div class="circles">
-                <div class="circle circle-1"></div>
-                <div class="circle circle-2"></div>
-            </div>
+    <main class="pt-3">
+        <h2 class="py-2 mx-4 mt-3 fondo-color text-center rounded-2">Credit cards</h2>
+        <div class="d-flex flex-wrap justify-content-center my-5 py-5 gap-5">
             
-            <div class="plastic-card" :class="{'gold-card-color': card.color === 'GOLD', 'silver-card-color': card.color === 'SILVER', 'titanium-card-color': card.color === 'TITANIUM'}" v-for="card of creditCards"> 
+            <div class="plastic-card plastic-card-shadow" :class="{'gold-card-color': card.color === 'GOLD', 'silver-card-color': card.color === 'SILVER', 'titanium-card-color': card.color === 'TITANIUM'}" v-for="card of creditCards"> 
                 <div class="visa_logo">
                     <img src="https://raw.githubusercontent.com/muhammederdem/credit-card-form/master/src/assets/images/visa.png" alt="">
                 </div>
                 <div class="visa_info">
                     <img src="https://raw.githubusercontent.com/muhammederdem/credit-card-form/master/src/assets/images/chip.png" alt="">
-                    <p>{{card.number}}</p>
+                    <p>{{card.number}}  <span class="card-cvv">{{card.cvv}}</span></p>
                 </div>
                 <div class="visa_crinfo">
                     <p>{{card.thruDate}}</p>
@@ -70,20 +69,15 @@
         </div>
         
 
-        <h2 class="pt-2 pb-2 fondo-color text-center">Debit cards</h2>
-        <div class="d-flex justify-content-center my-5 py-5 gap-2">
-            <div class="circles">
-                <div class="circle circle-1"></div>
-                <div class="circle circle-2"></div>
-            </div>
-            
-            <div class="plastic-card" :class="{'gold-card-color': card.color ==='GOLD', 'silver-card-color': card.color === 'SILVER', 'titanium-card-color': card.color === 'TITANIUM'}" v-for="card of debitCards"> 
+        <h2 class="py-2 mx-4 mt-3 fondo-color text-center rounded-2">Debit cards</h2>
+        <div class="d-flex flex-wrap justify-content-center my-5 py-5 gap-5">
+            <div class="plastic-card plastic-card-shadow" :class="{'gold-card-color': card.color ==='GOLD', 'silver-card-color': card.color === 'SILVER', 'titanium-card-color': card.color === 'TITANIUM'}" v-for="card of debitCards"> 
                 <div class="visa_logo">
                     <img src="https://raw.githubusercontent.com/muhammederdem/credit-card-form/master/src/assets/images/visa.png" alt="">
                 </div>
                 <div class="visa_info">
                     <img src="https://raw.githubusercontent.com/muhammederdem/credit-card-form/master/src/assets/images/chip.png" alt="">
-                    <p>{{card.number}}</p>
+                    <p>{{card.number}} <span class="card-cvv">{{card.cvv}}</span></p>
                 </div>
                 <div class="visa_crinfo">
                     <p>{{card.thruDate}}</p>
@@ -100,10 +94,10 @@
             </div>
         </div>
         <div class="text-center">
-          <a href="./create-cards.html" class="transaction-button add-button px-2">Create cards</a>
+          <a v-show="canCreate()" href="./create-cards.html" class="transaction-button add-button px-2">Create cards</a>
         </div>
     </main>
-    <footer class="d-flex align-items-center justify-content-around gap-2 bg-body-tertiary">
+    <footer class="d-flex align-items-center flex-wrap justify-content-around gap-2 bg-body-tertiary">
       <div class="d-flex gap-2 ms-2">
           <a href="https://api.whatsapp.com/send?phone=numero&text=mensaje"><img class="img-footer" src="./assets/whatsapp.png" alt="logo whatsapp"></a> 
           <a href=" http://facebook.com/Tiendanube."><img class="img-footer" src="./assets/facebook (1).png" alt="logo facebook"></a>

@@ -26,6 +26,9 @@ const app = createApp({
                     alertify.alert('Error creating account', error.message)
                 }
             })
+        },
+        canCreate() {
+            return this.debitCards.length < 3 || this.creditCards.length < 3
         }
     },
 }) .mount('#app')
