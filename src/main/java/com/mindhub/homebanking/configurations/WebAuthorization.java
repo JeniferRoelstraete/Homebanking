@@ -50,6 +50,10 @@ public class WebAuthorization {
 
                 .antMatchers("/api/accounts/{id}").hasAuthority("CLIENT")
 
+                .antMatchers("/api/loans").hasAuthority("CLIENT")
+
+                .antMatchers(HttpMethod.POST, "/api/loans").hasAuthority("CLIENT")
+
                 .antMatchers(HttpMethod.POST, "/api/clients").hasAuthority("CLIENT")
 
                 .antMatchers(HttpMethod.POST, "/api/clients/current/cards").hasAuthority("CLIENT")
@@ -78,6 +82,10 @@ public class WebAuthorization {
 
                 .antMatchers("/web/transfers.js").hasAuthority("CLIENT")
 
+                .antMatchers("/web/loan-application.html").hasAuthority("CLIENT")
+
+                .antMatchers("/web/loan-application.js").hasAuthority("CLIENT")
+
                 .anyRequest().denyAll();
 
         http.formLogin()
@@ -86,11 +94,11 @@ public class WebAuthorization {
 
                 .passwordParameter("password")
 
-                .loginPage("/api/login");
+                .loginPage("/api/login"); // puedes proporcionar la URL personalizada de tu página de inicio de sesión en lugar de utilizar la generada por defecto
 
-        http.logout().logoutUrl("/api/logout");
+        http.logout().logoutUrl("/api/logout").deleteCookies("JSESSIONID");
 
-        http.csrf().disable();
+        http.csrf().disable();// Spring Security genera tokens CSRF
 
         //disabling frameOptions so h2-console can be accessed
         //desabilita esa opcion para que pueda funcionar, consola es externa

@@ -68,7 +68,7 @@ public class TransactionController {
             return new ResponseEntity<>("The transaction amount must be positive", HttpStatus.FORBIDDEN);
         }
 
-        if (transactionAmount < originAccount.getBalance() ) {
+        if (originAccount.getBalance() < transactionAmount) {
             return new ResponseEntity<>("Account balance is not enough for performing the transaction", HttpStatus.FORBIDDEN);
         }                                           //el balance de la cuenta no es sufiente para realizar la trancaccion
 

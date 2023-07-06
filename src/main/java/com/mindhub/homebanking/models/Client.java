@@ -110,6 +110,11 @@ public class Client {
         cards.add(card);
     }
 
+    public void addClientLoan(ClientLoan clientLoan) {
+        clientLoan.setClient(this);
+        clientLoans.add(clientLoan);
+    }
+
     @Override
     public String toString() {
         return "Client{" +
