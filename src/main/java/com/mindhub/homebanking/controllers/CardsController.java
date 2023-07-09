@@ -1,5 +1,8 @@
 package com.mindhub.homebanking.controllers;
 
+import com.mindhub.homebanking.Services.CardsService;
+import com.mindhub.homebanking.Services.ClientService;
+import com.mindhub.homebanking.Services.Implement.ClientServiceImplement;
 import com.mindhub.homebanking.models.*;
 import com.mindhub.homebanking.repositories.CardRepository;
 import com.mindhub.homebanking.repositories.ClientRepository;
@@ -19,16 +22,16 @@ import java.time.LocalDate;
 public class CardsController {
 
     @Autowired
-    private CardRepository cardRepository;
+    private CardsService cardsService;
 
     @Autowired
-    private ClientRepository clientRepository;
+    private ClientService clientService;
 
     @RequestMapping(path = "/clients/current/cards", method = RequestMethod.POST)
     public ResponseEntity<Object> createCard(@RequestParam CardType type,
                                            @RequestParam CardColor color,
                                            Authentication authentication) { //crear la tarjeta para un  cliente autenticado
-        Client client = clientRepository.findByEmail(authentication.getName());
+        Client client = clientService.findByEmail(authentication.getName());
 
         if (client.getCards().stream().filter(card -> card.getType().equals(type) && card.getColor().equals(color)).count() == 1) {
             return new ResponseEntity<>("You have reached the card limit for this card type and color", HttpStatus.FORBIDDEN); //403
@@ -38,7 +41,7 @@ public class CardsController {
         String cardNumber; //declaro una variable para que en bucle cambie su valor
         do {
             cardNumber = Account.getRandomNumber(0, 9999) + "-" + Account.getRandomNumber(0, 9999) + "-" + Account.getRandomNumber(0, 9999) + "-" + Account.getRandomNumber(0, 9999); // genera un numero aletario y la guardo en el la variable
-        } while (cardRepository.findByNumber(cardNumber) != null); //busca la tarjeta por numero y se fija si este numero aletario ya exite
+        } while (cardsService.findByNumber(cardNumber) != null); //busca la tarjeta por numero y se fija si este numero aletario ya exite
         //si encontro tarjeta es distinto de null, vuelve al bucle
         //si no encontro tarjeta con ese numero, se crea tarjeta
 
@@ -53,8 +56,8 @@ public class CardsController {
         );
 
         client.addCard(card);
-        cardRepository.save(card);
-        clientRepository.save(client);
+        cardsService.save(card);
+        clientService.save(client);
 
         return new ResponseEntity<>(HttpStatus.CREATED); //201
     }

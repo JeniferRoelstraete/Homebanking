@@ -10,8 +10,6 @@ const app = createApp ({
         }
     },
     created(){
-        alertify.set('notifier','position', 'top-center')
-        alertify.notify('Sign in successful', 'success', 3)
         this.loadAccounts()
     },
     methods: {

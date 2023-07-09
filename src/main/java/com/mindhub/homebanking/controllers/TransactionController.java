@@ -1,5 +1,6 @@
 package com.mindhub.homebanking.controllers;
 
+import com.mindhub.homebanking.Services.TransactionService;
 import com.mindhub.homebanking.dtos.TransactionDTO;
 import com.mindhub.homebanking.models.Account;
 import com.mindhub.homebanking.models.Client;
@@ -28,7 +29,7 @@ public class TransactionController {
     private ClientRepository clientRepository;
 
     @Autowired
-    private TransactionRepository transactionRepository;
+    private TransactionService transactionService;
 
     @Transactional
     @RequestMapping(path = "/client/current/transactions", method = RequestMethod.POST)
@@ -81,8 +82,8 @@ public class TransactionController {
         double finalDestinationAccountBalance = destinationAccount.getBalance() + transactionAmount;
         destinationAccount.setBalance(finalDestinationAccountBalance);
 
-        transactionRepository.save(debitTransaction);
-        transactionRepository.save(creditTransaction);
+        transactionService.save(debitTransaction);
+        transactionService.save(creditTransaction);
 
         originAccount.addTransaction(debitTransaction);
         destinationAccount.addTransaction(creditTransaction);

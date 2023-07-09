@@ -1,6 +1,6 @@
 package com.mindhub.homebanking.dtos;
 
-//dto solicita el prestamo
+//dto solicita el prestamo,los datos del usuario
 public class LoanApplicationDTO {
 
     private Long id;
@@ -10,8 +10,6 @@ public class LoanApplicationDTO {
     private Integer payments;
 
     private String destinationAccount;
-
-    public LoanApplicationDTO(){};
 
     public LoanApplicationDTO(Long loanId, Double amount, Integer payments, String destinationAccount) {
         this.id = loanId;

@@ -28,12 +28,6 @@ const app = createApp({
             this.destinationAccounts = this.originAccounts.filter(account => account.number !== this.originAccountNumber)
         },
         createTransactionAlert() {
-            console.log(
-                [this.originAccountNumber,
-                this.destinationAccountNumber,
-                this.transactionAmount,
-                this.transactionDescription]
-            );
             if (!this.originAccountNumber || !this.destinationAccountNumber || +this.transactionAmount === 0 || !this.transactionDescription) {
                 return
             }
@@ -41,7 +35,7 @@ const app = createApp({
             const message = `<b>Transaction details</b><br/>
             Origin account number:      ${this.originAccountNumber}<br/>
             Destination account number: ${this.destinationAccountNumber}<br/>
-            Amount to be transfered:    $${this.transactionAmount}<br/>
+            Amount to be transfered:    $${this.transactionAmount.toLocaleString('es-AR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}<br/>
             Transfer description:       ${this.transactionDescription}`
 
             alertify.confirm(

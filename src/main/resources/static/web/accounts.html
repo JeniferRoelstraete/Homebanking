@@ -38,9 +38,6 @@
               <a class="nav-link active" href="#">Accounts</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="./account.html">Transactions</a>
-            </li>
-            <li class="nav-item">
               <a class="nav-link" href="./cards.html">Cards</a>
               <li class="nav-item">
                 <a class="nav-link" href="./transfers.html">Transfers</a>
@@ -91,14 +88,14 @@
               <h4 class="card-title mb-0">Account list</h4>
             </div>
             <div class="d-flex flex-wrap px-4 py-4 justify-content-around gap-2 account-detail">
-              <div v-for="account of accounts" class="card account-detail card-shadow my-2" style="width: 18rem;">
+              <div v-for="account of accounts" class="card account-detail card-shadow my-2" style="width: 25rem;">
                 <div class="card-body">
                   <h5 class="card-title">{{account.number}}</h5>
                   <hr>
                   <p class="card-text">creation date: {{formatDate(account.creationDate)}}</p>
-                  <h3 class="card-text">balance: &dollar; {{account.balance.toLocaleString()}}</h3>
+                  <h3 class="card-text">balance: &dollar; {{account.balance.toLocaleString('es-AR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}}</h3>
                   <div class="text-center pt-2">
-                    <a :href="'http://localhost:8080/web/account.html?id=' + account.id"
+                    <a v-show="account.balance > 0" :href="'http://localhost:8080/web/account.html?id=' + account.id"
                       class="transaction-button">Transactions</a>
                   </div>
                 </div>
@@ -128,7 +125,7 @@
                 <tbody class="table-group-divider">
                   <tr class="table-primary" v-for="loan of loans">
                     <td>{{loan.loanName}}</td>
-                    <td class="text-right">&dollar;{{loan.amount.toLocaleString()}}</td>
+                    <td class="text-right">&dollar;{{loan.amount.toLocaleString('es-AR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}}</td>
                     <td>{{loan.payment}} quotas</td>
                   </tr>
                 </tbody>
@@ -136,8 +133,8 @@
             </div>
           </div>
 
-          <div class="text-center pt-2">
-            <a href="./loan-application.html">Apply</a>
+          <div class="text-center mt-3 mb-5">
+            <a class="transaction-button" href="./loan-application.html">Apply Loan</a>
           </div>
 
         </div>

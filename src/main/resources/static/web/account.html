@@ -25,9 +25,6 @@
                     <a class="nav-link" href="./accounts.html">Accounts</a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link active" href="#">Transactions</a>
-                  </li>
-                  <li class="nav-item">
                     <a class="nav-link" href="./cards.html">Cards</a>
                   </li>
                   <li class="nav-item">
@@ -75,7 +72,7 @@
               <div class="card mt-4 ms-4 me-4">
                       <div class="card-header d-flex justify-content-between">
                           <h4 class="card-title mb-0">Account {{account.number}} Transactions</h4>
-                          <h4 class="card-title mb-0">Balance ${{account.balance ? account.balance.toLocaleString() : 0}}</h4>
+                          <h4 class="card-title mb-0">Balance ${{account.balance ? account.balance.toLocaleString('es-AR', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) : 0}}</h4>
                         </div>
                           <div class="table-responsive ps">
                             <table class="table mb-0">
@@ -90,7 +87,7 @@
                                     <tr class="table-primary" v-for="transaction of transactions">
                                       <td>{{formatDate(transaction.date)}}</td>
                                       <td>{{transaction.description}}</td>
-                                      <td  class="text-right" :class="[transaction.type === 'DEBITO' ? redColor : greenColor ]">${{transaction.amount ? transaction.amount.toLocaleString() : 0}}</td>
+                                      <td class="text-right" :class="[transaction.type === 'DEBITO' ? redColor : greenColor ]">${{transaction.amount ? transaction.amount.toLocaleString('es-AR', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) : 0}}</td>
                                     </tr>
                                   </tbody>
                                 </table>

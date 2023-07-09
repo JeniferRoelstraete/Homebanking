@@ -40,16 +40,13 @@
                             <a class="nav-link" href="./accounts.html">Accounts</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="./account.html">Transactions</a>
-                        </li>
-                        <li class="nav-item">
                             <a class="nav-link" href="./cards.html">Cards</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link active" href="#">Transfers</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Loans</a>
+                            <a class="nav-link" href="./loan-application.html">Loans</a>
                         </li>
                     </ul>
                     <button type="button" @click="signOut()" class="transaction-button m-0">Sign out</button>
@@ -64,7 +61,7 @@
                 <div class="w-75">
                     <label for="originAccountSelector" class="form-label">Origin account</label>
                     <select v-model="originAccountNumber" id="originAccountSelector" class="form-select" @change="updateDestinationAccounts()">
-                        <option v-for="account of originAccounts" :value="account.number">{{account.number}} - ${{account.balance}}</option>
+                        <option v-for="account of originAccounts" :value="account.number">{{account.number}} - ${{account.balance.toLocaleString('es-AR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}}</option>
                     </select>
                 </div>
                 <div class="w-75">
@@ -100,7 +97,7 @@
                     <textarea v-model="transactionDescription" class="form-control" placeholder="Leave a comment here" id="floatingTextarea"></textarea>  
                 </div>
                 <div>
-                    <button type="button" @click="createTransactionAlert()" class="btn btn-primary">Send</button>
+                    <button type="button" @click="createTransactionAlert()" class="transaction-button m-0">Send</button>
                 </div>
             </form>
         </div>

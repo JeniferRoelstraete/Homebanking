@@ -36,16 +36,13 @@
                             <a class="nav-link" href="./accounts.html">Accounts</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="./account.html">Transactions</a>
-                        </li>
-                        <li class="nav-item">
                             <a class="nav-link" href="./cards.html">Cards</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link active" href="./transfers.html">Transfers</a>
+                            <a class="nav-link" href="./transfers.html">Transfers</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Loans</a>
+                            <a class="nav-link active" href="#">Loans</a>
                         </li>
                     </ul>
                     <button type="button" @click="signOut()" class="transaction-button m-0">Sign out</button>
@@ -55,47 +52,38 @@
     </header>
     <main class="pt-3 mb-5">
         <h2 class="py-2 mx-4 mt-3 fondo-color text-center rounded-2">Loans</h2>
+
+
         <div class="col-12 col-md-6 container-fluid pt-2">
             <form class="d-flex gap-5 py-3 flex-column justify-content-center align-items-center rounded-2 bg-body-secondary">
-                <div class="w-75">             <label for="originAccountSelector" class="form-label">type de loans</label>
-                    <select v-model="originAccountNumber" id="originAccountSelector" class="form-select" @change="updateDestinationAccounts()">
-                        <option v-for="account of originAccounts" :value="account.number">{{account.number}} - ${{account.balance}}</option>
+                <div class="w-75">             
+                    <label for="loanTypeSelector" class="form-label">Loan types</label>
+                    <select v-model="loanTypeId" id="loanTypeSelector" class="form-select" @change="updatePaymentsList()">
+                        <option v-for="loanType of loanTypes" :value="loanType.id">{{loanType.name}} - Amount: max. ${{loanType.maxAmount}}</option>
                     </select>
                 </div>
                 <div class="w-75">
-                    <label for="inputState" class="form-label">Send money to</label>
-                    <select v-model="accountSelector" id="inputState" class="form-select">
-                        <option value="" disabled hidden>Choose destination account type</option>
-                        <option value="ownAccount">Own account</option>
-                        <option value="thirdAccount">Third party account</option>
+                    <label for="destinationAccountSelector" class="form-label">Destination account</label>
+                    <select v-model="destinationAccountNumber" id="destinationAccountSelector" class="form-select">
+                        <option v-for="account of accounts" :value="account.number">{{account.number}} - ${{account.balance.toLocaleString('es-AR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}}</option>
                     </select>
-                </div>
-                <div v-show="accountSelector != ''" class="w-75">
-                    <label for="ownAccountSelector" class="form-label">Tipo de credito</label>
-                    
-                    <!-- Si selecciono cuenta propia tengo que listar todas las cuentas menos la origen -->
-                    <select v-if="accountSelector == 'ownAccount'" v-model="destinationAccountNumber" id="ownAccountSelector" class="form-select">
-                        <option v-for="destinationAccount of destinationAccounts" :value="destinationAccount.number">{{destinationAccount.number}}</option>
-                    </select>
-                 
-                    <!-- Si selecciono cuenta de terceros tengo que mostrar un input para ingresar el número manualmente -->
-                    <div v-else class="w-75">
-                        <input type="text" v-model="destinationAccountNumber">
-                    </div>
                 </div>
                 <div class="w-75">
-                    <label class="form-label" for="tentacles">Write the amount to transfer:</label>
+                    <label for="amountInput">Amount</label>
                     <div class="input-group">
                         <span class="input-group-text">$</span>
-                        <input class="form-control" v-model="transactionAmount" type="number" min="0" id="tentacles" name="tentacles">
+                        <input class="form-control" v-model="amount" type="number" min="0">
                     </div>
                 </div>
                 <div class="w-75">
-                    <label class="form-label" for="floatingTextarea">Description</label>
-                    <textarea v-model="transactionDescription" class="form-control" placeholder="Leave a comment here" id="floatingTextarea"></textarea>  
+                    <label for="paymentSelector" class="form-label">Payment</label>
+                    <select v-model="selectedPayment" id="paymentSelector" class="form-select">
+                        <option v-for="payment of payments" :value="payment">{{payment}}</option>
+                    </select>
+                    <p class="mt-2" v-if="amount && selectedPayment">Amount per payment: ${{(amount * 1.2 / selectedPayment).toLocaleString('es-AR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}}</p>
                 </div>
                 <div>
-                    <button type="button" @click="createTransactionAlert()" class="btn btn-primary">Send</button>
+                    <button type="button" @click="createLoanAlert()" class="transaction-button m-0">Apply</button>
                 </div>
             </form>
         </div>
@@ -126,6 +114,6 @@
     integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
     crossorigin="anonymous"></script>
 <script src="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
-<script src="transfers.js"></script>
+<script src="./loan-application.js"></script>
 
 </html>

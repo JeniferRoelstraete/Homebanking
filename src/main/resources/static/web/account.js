@@ -19,7 +19,6 @@ const app = createApp ({
             const idParam = urlParams.get('id');
             axios.get(`http://localhost:8080/api/clients/current`)
                 .then(response => {
-                    console.log(idParam);
                     this.account = idParam != null ? response.data.accounts.find(account => account.id.toString() === idParam) : response.data.accounts[0]
                     this.transactions = this.account != undefined ? this.account.transactions.sort((transaction1, transaction2) => transaction2.id - transaction1.id) : []
             }) .catch((error) => {
@@ -27,7 +26,7 @@ const app = createApp ({
             })
         },
         formatDate(date) {
-            return new Date(date).toLocaleString()
+            return new Date(date).toLocaleString('es-AR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })
         },
         signOut() {
             axios.post('/api/logout')

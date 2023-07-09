@@ -1,5 +1,6 @@
 package com.mindhub.homebanking.controllers;
 
+import com.mindhub.homebanking.Services.*;
 import com.mindhub.homebanking.dtos.LoanApplicationDTO;
 import com.mindhub.homebanking.dtos.LoanDTO;
 import com.mindhub.homebanking.models.*;
@@ -24,19 +25,19 @@ import java.util.stream.Collectors;
 public class LoanController {
 
     @Autowired
-    private AccountRepository accountRepository;
+    private AccountService accountService;
 
     @Autowired
-    private ClientRepository clientRepository;
+    private ClientService clientService;
 
     @Autowired
-    private ClientLoanRepository clientLoanRepository;
+    private ClientLoanService clientLoanService;
 
     @Autowired
-    private LoanRepository loanRepository;
+    private LoanService loanService;
 
     @Autowired
-    private TransactionRepository transactionRepository;
+    private TransactionService transactionService;
 
     @Transactional
     @RequestMapping (path ="/loans", method = RequestMethod.POST)
@@ -50,7 +51,7 @@ public class LoanController {
             return new ResponseEntity<>("Missing data", HttpStatus.FORBIDDEN);
         }
 
-        Loan loan = loanRepository.findById(loanApplicationDTO.getId()).orElse(null);
+        Loan loan = loanService.findById(loanApplicationDTO.getId());
 
         if (loan == null) {
             return new ResponseEntity<>("Loan type does not exist", HttpStatus.FORBIDDEN);
@@ -64,13 +65,13 @@ public class LoanController {
             return new ResponseEntity<>("The quantity of payments is not available for the selected loan type", HttpStatus.FORBIDDEN);
         }           // La cantidad de pagos no está disponible para el tipo de préstamo seleccionado
 
-        Account account = accountRepository.findByNumber(loanApplicationDTO.getDestinationAccount());
+        Account account = accountService.findByNumber(loanApplicationDTO.getDestinationAccount());
 
         if (account == null) {
             return new ResponseEntity<>("Destination account does not exist", HttpStatus.FORBIDDEN);
         }
 
-        Client client = clientRepository.findByEmail(authentication.getName());
+        Client client = clientService.findByEmail(authentication.getName());
 
         if (!client.getAccounts().contains(account)) {
             return new ResponseEntity<>("Destination account does not belong to client accounts", HttpStatus.FORBIDDEN);
@@ -85,16 +86,16 @@ public class LoanController {
         client.addClientLoan(newLoan);
         account.addTransaction(newTransaction);
 
-        clientLoanRepository.save(newLoan);
-        transactionRepository.save(newTransaction);
-        accountRepository.save(account);
-        clientRepository.save(client);
+        clientLoanService.save(newLoan);
+        transactionService.save(newTransaction);
+        accountService.save(account);
+        clientService.save(client);
 
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     @RequestMapping("/loans")
     public List<LoanDTO> getLoans() {
-        return  loanRepository.findAll().stream().map(loan -> new LoanDTO(loan)).collect(Collectors.toList());
+       return loanService.findAll();
     }
 }
