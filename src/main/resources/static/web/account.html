@@ -1,99 +1,108 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Account detail</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
-    <link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Account detail</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+  <link rel="stylesheet" href="styles.css">
 </head>
+
 <body id="app">
-    <header>
-        <nav class="navbar navbar-expand-lg bg-body-tertiary">
-            <div class="container-fluid">
-              <a class="navbar-brand ms-5" href="#">
-                <img class="align-top" src="./assets/bank.png" width="30" height="24">
-                <span class="ms-2 fw-semibold">Diamond Bank</span> 
-              </a>
-              <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-              </button>
-              <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
-                <ul class="navbar-nav me-5 mb-2 mb-lg-0">
-                  <li class="nav-item">
-                    <a class="nav-link" href="./accounts.html">Accounts</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link" href="./cards.html">Cards</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link" href="./transfers.html">Transfers</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link" href="./loan-application.html">Loans</a>
-                  </li>
-                </ul>
-                <button type="button" @click="signOut()" class="transaction-button m-0">Sign out</button>
-              </div>
-            </div>
-          </nav>
-        </header>
-    <main class="pb-4">
-      <section>
-        <div id="carouselExampleAutoplaying" class="carousel slide" data-bs-ride="carousel">
-          <div class="carousel-inner">
-            <div class="carousel-item active">
-              <img src="./assets/banco_2_buena-transformed.jpeg" class="d-block object-fit-cover" alt="...">
-            </div>
-            <div class="carousel-item">
-              <img src="./assets/foto tarjeta credit.jpg" class="d-block object-fit-cover" alt="...">
-            </div>
-            <div class="carousel-item">
-              <img src="./assets/foto_banco-transformed (1).jpeg" class="d-block object-fit-cover" alt="...">
-            </div>
-          </div>
-          <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Previous</span>
-          </button>
-          <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Next</span>
-          </button>
-        </div>
-      </section>
+  <header>
+    <nav class="navbar navbar-expand-lg bg-body-tertiary">
       <div class="container-fluid">
-        <div class="row justify-content-center">
-          <div class="col width-75">
-            <h2 class="py-2 mx-4 mt-3 fondo-color text-center rounded-2">Your Transactions</h2>
+        <a class="navbar-brand ms-5" href="#">
+          <img class="align-top" src="./assets/bank.png" width="30" height="24">
+          <span class="ms-2 fw-semibold">Diamond Bank</span>
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
+          <ul class="navbar-nav me-5 mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a class="nav-link" href="./accounts.html">Accounts</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="./cards.html">Cards</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="./transfers.html">Transfers</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="./loan-application.html">Loans</a>
+            </li>
+          </ul>
+          <button type="button" @click="signOut()" class="transaction-button m-0">Sign out</button>
+        </div>
+      </div>
+    </nav>
+  </header>
+  <main class="pb-4">
+    <section>
+      <div id="carouselExampleAutoplaying" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-inner">
+          <div class="carousel-item active">
+            <img src="./assets/banco_2_buena-transformed.jpeg" class="d-block object-fit-cover" alt="...">
+          </div>
+          <div class="carousel-item">
+            <img src="./assets/foto tarjeta credit.jpg" class="d-block object-fit-cover" alt="...">
+          </div>
+          <div class="carousel-item">
+            <img src="./assets/foto_banco-transformed (1).jpeg" class="d-block object-fit-cover" alt="...">
+          </div>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleAutoplaying"
+          data-bs-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleAutoplaying"
+          data-bs-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Next</span>
+        </button>
+      </div>
+    </section>
+    <div class="container-fluid">
+      <div class="row justify-content-center">
+        <div class="col width-75">
+          <h2 class="py-2 mx-4 mt-3 fondo-color text-center rounded-2">Your Transactions</h2>
           <div v-if="account">
             <div>
               <div class="card mt-4 ms-4 me-4">
-                      <div class="card-header d-flex justify-content-between">
-                          <h4 class="card-title mb-0">Account {{account.number}} Transactions</h4>
-                          <h4 class="card-title mb-0">Balance ${{account.balance ? account.balance.toLocaleString('es-AR', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) : 0}}</h4>
-                        </div>
-                          <div class="table-responsive ps">
-                            <table class="table mb-0">
-                                  <thead>
-                                    <tr class="table-primary">
-                                      <th>Date</th>
-                                      <th>Description</th>
-                                      <th class="text-right">Amount</th>
-                                    </tr>
-                                  </thead>
-                                  <tbody>
-                                    <tr class="table-primary" v-for="transaction of transactions">
-                                      <td>{{formatDate(transaction.date)}}</td>
-                                      <td>{{transaction.description}}</td>
-                                      <td class="text-right" :class="[transaction.type === 'DEBITO' ? redColor : greenColor ]">${{transaction.amount ? transaction.amount.toLocaleString('es-AR', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) : 0}}</td>
-                                    </tr>
-                                  </tbody>
-                                </table>
-                              </div>
-                  </div>
+                <div class="card-header d-flex justify-content-between">
+                  <h4 class="card-title mb-0">Account {{account.number}} Transactions</h4>
+                  <h4 class="card-title mb-0">Balance ${{account.balance ? account.balance.toLocaleString('es-AR', {
+                    minimumFractionDigits: 2, maximumFractionDigits: 2 }) : 0}}</h4>
+                </div>
+                <div class="table-responsive ps">
+                  <table class="table mb-0">
+                    <thead>
+                      <tr class="table-primary">
+                        <th>Date</th>
+                        <th>Description</th>
+                        <th class="text-right">Amount</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr class="table-primary" v-for="transaction of transactions">
+                        <td>{{formatDate(transaction.date)}}</td>
+                        <td>{{transaction.description}}</td>
+                        <td class="text-right" :class="[transaction.type === 'DEBITO' ? redColor : greenColor ]">
+                          ${{transaction.amount ? transaction.amount.toLocaleString('es-AR', { minimumFractionDigits: 2,
+                          maximumFractionDigits: 2 }) : 0}}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
               </div>
+            </div>
           </div>
           <div v-else class="container">
             <h2>There is no data to show</h2>
@@ -101,23 +110,30 @@
         </div>
       </div>
     </div>
-      
-    </main>
-    <footer class="d-flex align-items-center justify-content-around gap-2 bg-body-tertiary">
-      <div class="d-flex gap-2 ms-2">
-          <a href="https://api.whatsapp.com/send?phone=numero&text=mensaje"><img class="img-footer" src="./assets/whatsapp.png" alt="logo whatsapp"></a> 
-          <a href=" http://facebook.com/Tiendanube."><img class="img-footer" src="./assets/facebook (1).png" alt="logo facebook"></a>
-          <a href="https://www.instagram.com/"><img class="img-footer" src="./assets/instagram.png" alt="logo instagram"></a>
-      </div>
-      <div class="d-flex flex-grow-1 justify-content-center">
-          <a href="mailto:Diamond Bank"><img class="img-footer me-2" src="./assets/email.png" alt="logo de email">Contact Us</a>
-          <a class="ms-4" href=""><img class="img-footer me-2" src="./assets/phone.png" alt="logo de telefono">Useful phone</a>
-      </div>
-      <p class="mb-0 me-2">© 2023 Diamond Bank Argentina S.A. All rights reserved</p>
+
+  </main>
+  <footer class="d-flex align-items-center justify-content-around gap-2 bg-body-tertiary">
+    <div class="d-flex gap-2 ms-2">
+      <a href="https://api.whatsapp.com/send?phone=numero&text=mensaje"><img class="img-footer"
+          src="./assets/whatsapp.png" alt="logo whatsapp"></a>
+      <a href=" http://facebook.com/Tiendanube."><img class="img-footer" src="./assets/facebook (1).png"
+          alt="logo facebook"></a>
+      <a href="https://www.instagram.com/"><img class="img-footer" src="./assets/instagram.png"
+          alt="logo instagram"></a>
+    </div>
+    <div class="d-flex flex-grow-1 justify-content-center">
+      <a href="mailto:Diamond Bank"><img class="img-footer me-2" src="./assets/email.png" alt="logo de email">Contact
+        Us</a>
+      <a class="ms-4" href=""><img class="img-footer me-2" src="./assets/phone.png" alt="logo de telefono">Useful
+        phone</a>
+    </div>
+    <p class="mb-0 me-2">© 2023 Diamond Bank Argentina S.A. All rights reserved</p>
   </footer>
-  </body>
+</body>
 <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+  integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
 <script src="account.js"></script>
+
 </html>

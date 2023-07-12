@@ -33,9 +33,9 @@ const app = createApp ({
             .then(response => location.href="./index.html")
             .catch((error) => {
                 if (error.response && error.response.data) {
-                    alertify.alert('Error creating account', error.response.data)
+                    alertify.alert('Error signing out', error.response.data)
                 } else {
-                    alertify.alert('Error creating account', error.message)
+                    alertify.alert('Error signing out', error.message)
                 }
             })
         }

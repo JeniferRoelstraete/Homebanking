@@ -70,12 +70,12 @@ const app = createApp({
                      axios.post('/api/logout')
                      .then(response => location.href="./index.html")
                      .catch((error) => {
-                         if (error.response && error.response.data) {
-                             alertify.alert('Error creating account', error.response.data)
-                         } else {
-                             alertify.alert('Error creating account', error.message)
-                         }
-                     })
+                        if (error.response && error.response.data) {
+                            alertify.alert('Error signing out', error.response.data)
+                        } else {
+                            alertify.alert('Error signing out', error.message)
+                        }
+                    })
                  },
     },
     

@@ -30,7 +30,7 @@ public class HomebankingApplication {
 									  CardRepository cardRepository) {
 		return args -> {
 
-			Client client1 = new Client("Melba", "Morel", "melba@mindhub.com", passwordEnconder.encode("3333"));
+			/*Client client1 = new Client("Melba", "Morel", "melba@mindhub.com", passwordEnconder.encode("3333"));
 			Client client2 = new Client("Juan", "Bili", "jbili@mindhub.com", passwordEnconder.encode("3675"));
  			Client admin = new Client("admin","admin","admin@gmail.com", passwordEnconder.encode("123"));
 
@@ -107,7 +107,7 @@ public class HomebankingApplication {
 			clientLoanRepository.saveAll(List.of(clientLoan1, clientLoan2, clientLoan3, clientLoan4));
 
 			cardRepository.saveAll(List.of(card1,card2,card3));
-
+*/
 		};
 	}
 
