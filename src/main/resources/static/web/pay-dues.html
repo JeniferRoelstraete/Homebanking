@@ -54,50 +54,30 @@
             </div>
         </nav>
     </header>
-    <main class="pt-3 mb-5">
-        <h2 class="py-2 mx-4 mt-3 fondo-color text-center rounded-2">Transfers</h2>
+       
+    <main>
+        <h2 class="py-2 mx-4 mt-3 fondo-color text-center rounded-2">Electronic payment management</h2>
+
         <div class="col-12 col-md-6 container-fluid pt-2">
             <form class="d-flex gap-5 py-3 flex-column justify-content-center align-items-center rounded-2 bg-body-secondary">
-                <div class="w-75">
-                    <label for="originAccountSelector" class="form-label">Origin account</label>
-                    <select v-model="originAccountNumber" id="originAccountSelector" class="form-select" @change="updateDestinationAccounts()">
-                        <option v-for="account of originAccounts" :value="account.number">{{account.number}} - ${{account.balance.toLocaleString('es-AR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}}</option>
+                <div class="w-75">             
+                    <label for="clientLoanSelector" class="form-label">Loan types</label>
+                    <select v-model="clientLoanId" id="clientLoanSelector" class="form-select" @change="updatePaymentValue()">
+                        <option v-for="clientLoan of clientLoans" :value="clientLoan.clientLoanId">{{clientLoan.loanName}} - Remaining: ${{clientLoan.pendingAmount}}</option>
                     </select>
                 </div>
                 <div class="w-75">
-                    <label for="inputState" class="form-label">Send money to</label>
-                    <select v-model="accountSelector" id="inputState" class="form-select">
-                        <option value="" disabled hidden>Choose destination account type</option>
-                        <option value="ownAccount">Own account</option>
-                        <option value="thirdAccount">Third party account</option>
-                    </select>
-                </div>
-                <div v-show="accountSelector != ''" class="w-75">
-                    <label for="ownAccountSelector" class="form-label">Destination account</label>
-                    
-                    <!-- Si selecciono cuenta propia tengo que listar todas las cuentas menos la origen -->
-                    <select v-if="accountSelector == 'ownAccount'" v-model="destinationAccountNumber" id="ownAccountSelector" class="form-select">
-                        <option v-for="destinationAccount of destinationAccounts" :value="destinationAccount.number">{{destinationAccount.number}} - ${{destinationAccount.balance.toLocaleString('es-AR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}}</option>
-                    </select>
-                 
-                    <!-- Si selecciono cuenta de terceros tengo que mostrar un input para ingresar el número manualmente -->
-                    <div v-else class="w-75">
-                        <input type="text" v-model="destinationAccountNumber">
-                    </div>
+                    <label for="paymentSelector" class="form-label">Payment</label>
+                    <input class="form-control" type="text" v-model="selectedPayment" value="selectedPayment" disabled="true">
                 </div>
                 <div class="w-75">
-                    <label class="form-label" for="tentacles">Write the amount to transfer:</label>
-                    <div class="input-group">
-                        <span class="input-group-text">$</span>
-                        <input class="form-control" v-model="transactionAmount" type="number" min="0" id="tentacles" name="tentacles">
-                    </div>
-                </div>
-                <div class="w-75">
-                    <label class="form-label" for="floatingTextarea">Description</label>
-                    <textarea v-model="transactionDescription" class="form-control" placeholder="Leave a comment here" id="floatingTextarea"></textarea>  
+                    <label for="originAccountNumberSelector" class="form-label">Choose account</label>
+                    <select v-model="originAccountNumber" id="originAccountNumberSelector" class="form-select">
+                        <option v-for="account of accounts" :value="account.number">{{account.number}} - ${{account.balance.toLocaleString('es-AR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}}</option>
+                    </select>
                 </div>
                 <div>
-                    <button type="button" @click="createTransactionAlert()" class="transaction-button m-0">Send</button>
+                    <button type="button" @click="performPayment()" class="transaction-button m-0">Pay</button>
                 </div>
             </form>
         </div>
@@ -128,6 +108,6 @@
     integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
     crossorigin="anonymous"></script>
 <script src="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
-<script src="transfers.js"></script>
+<script src="pay-dues.js"></script>
 
 </html>

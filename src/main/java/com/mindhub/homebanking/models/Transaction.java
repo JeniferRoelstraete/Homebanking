@@ -1,12 +1,14 @@
 package com.mindhub.homebanking.models;
 
-import net.minidev.json.annotate.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
+@Where(clause = "deleted=false")
 public class Transaction {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO, generator = "native")
@@ -25,13 +27,18 @@ public class Transaction {
 
     private String description;
 
+    private Double currentBalance;
+
+    private boolean deleted = false;
+
     public Transaction() {}
 
-    public Transaction(TransactionType type, Double amount, LocalDateTime date, String description) {
+    public Transaction(TransactionType type, Double amount, LocalDateTime date, String description, Double currentBalance) {
         this.type = type;
         this.amount = amount;
         this.date = date;
         this.description = description;
+        this.currentBalance = currentBalance;
     }
 
     public long getId() {
@@ -42,7 +49,7 @@ public class Transaction {
         this.id = id;
     }
 
-    @JsonIgnore
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     public Account getAccount() {
         return account;
     }
@@ -81,5 +88,21 @@ public class Transaction {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public Double getCurrentBalance() {
+        return currentBalance;
+    }
+
+    public void setCurrentBalance(Double currentBalance) {
+        this.currentBalance = currentBalance;
+    }
+
+    public boolean isDeleted() {
+        return deleted;
+    }
+
+    public void setDeleted(boolean deleted) {
+        this.deleted = deleted;
     }
 }

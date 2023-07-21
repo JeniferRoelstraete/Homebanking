@@ -1,6 +1,8 @@
 package com.mindhub.homebanking.models;
 
 import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -9,6 +11,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
+@Where(clause = "deleted=false")
 public class Card {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO, generator = "native")
@@ -29,13 +32,15 @@ public class Card {
 
     private LocalDate fromDate;
 
+    private boolean deleted = Boolean.FALSE;
+
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "client_id")
     private Client client;
 
     public Card() {};
 
-    public Card(String cardholder, CardType type, CardColor color, String number, short cvv, LocalDate thruDate, LocalDate fromDate) {
+    public Card(String cardholder, CardType type, CardColor color, String number, short cvv, LocalDate thruDate, LocalDate fromDate, boolean deleted) {
         this.cardholder = cardholder;
         this.type = type;
         this.color = color;
@@ -43,6 +48,7 @@ public class Card {
         this.cvv = cvv;
         this.thruDate = thruDate;
         this.fromDate = fromDate;
+        this.deleted = deleted;
     }
 
     public long getId() {
@@ -115,5 +121,13 @@ public class Card {
 
     public void setClient(Client client) {
         this.client = client;
+    }
+
+    public boolean isDeleted() {
+        return deleted;
+    }
+
+    public void setDeleted(boolean deleted) {
+        this.deleted = deleted;
     }
 }

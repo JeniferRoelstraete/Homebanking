@@ -15,5 +15,7 @@ public interface AccountService {
 
     Account findByNumber(String accountNumber);
 
+    void deleteByNumber(String accountNumber);
+
     void save(Account account);
 }

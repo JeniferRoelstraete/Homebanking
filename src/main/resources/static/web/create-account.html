@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+  <link rel="stylesheet" href="./styles.css">
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/alertify.min.css" />
+  <!-- Default theme -->
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/default.min.css" />
+  <!-- Semantic UI theme -->
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/semantic.min.css" />
+  <!-- Bootstrap theme -->
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/bootstrap.min.css" />
+
+</head>
+
+<body id="app">
+  <header>
+    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+      <div class="container-fluid">
+        <a class="navbar-brand ms-5" href="#">
+          <img class="align-top" src="./assets/bank.png" width="30" height="24">
+          <span class="ms-2 fw-semibold">Diamond Bank</span>
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
+          <ul class="navbar-nav me-5 mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a class="nav-link" href="./accounts.html">Accounts</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link active" href="./cards.html">Cards</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="./loan-application.html">Loans</a>
+            </li>
+          </ul>
+          <button type="button" @click="signOut()" class="transaction-button m-0">Sign out</button>
+        </div>
+      </div>
+    </nav>
+  </header>
+  <main>
+    <div class="container-fluid form-card-create-container">
+      <form class="row g-3 h-100 justify-content-center align-items-center needs-validation rounded-2 bg-body-secondary"
+        novalidate>
+      <h2 class="text-center">Choose your account type</h2>
+      <hr class="m-0">
+        <div class="col-md-3 w-50">
+          <label for="validationCustom04" class="form-label mt-4">Account type</label>
+          <select v-model="accountType" class="form-select" id="validationCustom04" required>
+            <option selected disabled value="">pick a type</option>
+            <option value="SAVINGS_ACCOUNT">SAVINGS ACCOUNT</option>
+            <option value="CURRENT_ACCOUNT">CURRENT ACCOUNT</option>
+          </select>
+        </div>
+        <div class="col-12 text-center">
+          <button @click="createAccount()" class="transaction-button" type="button"
+            :disabled="accountType == ''">Create account</button>
+        </div>
+      </form>
+    </div>
+  </main>
+  <footer class="d-flex align-items-center justify-content-around gap-2 bg-body-tertiary">
+    <div class="d-flex gap-2 ms-2">
+      <a href="https://api.whatsapp.com/send?phone=numero&text=mensaje"><img class="img-footer"
+          src="./assets/whatsapp.png" alt="logo whatsapp"></a>
+      <a href=" http://facebook.com/Tiendanube."><img class="img-footer" src="./assets/facebook (1).png"
+          alt="logo facebook"></a>
+      <a href="https://www.instagram.com/"><img class="img-footer" src="./assets/instagram.png"
+          alt="logo instagram"></a>
+    </div>
+    <div class="d-flex flex-grow-1 justify-content-center">
+      <a href="mailto:Diamond Bank"><img class="img-footer me-2" src="./assets/email.png" alt="logo de email">Contact
+        Us</a>
+      <a class="ms-4" href=""><img class="img-footer me-2" src="./assets/phone.png" alt="logo de telefono">Useful
+        phone</a>
+    </div>
+    <p class="mb-0 me-2">© 2023 Diamond Bank Argentina S.A. All rights reserved</p>
+  </footer>
+</body>
+<script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+  integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
+<script src="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
+<script src="./create-account.js"></script>
+
+</html>

@@ -24,13 +24,20 @@ public class ClientLoan {
 
     private Integer payment;
 
-    public ClientLoan() { }
+    private double pendingAmount;
+
+    private Integer pendingPayments;
+
+    public ClientLoan() {
+    }
 
     public ClientLoan(Client client, Loan loan, double amount, Integer payment) {
         this.client = client;
         this.loan = loan;
         this.amount = amount;
         this.payment = payment;
+        this.pendingAmount = amount;
+        this.pendingPayments = payment;
     }
 
     public long getId() {
@@ -72,4 +79,21 @@ public class ClientLoan {
     public void setPayment(Integer payment) {
         this.payment = payment;
     }
+
+    public double getPendingAmount() {
+        return pendingAmount;
+    }
+
+    public void setPendingAmount(double pendingAmount) {
+        this.pendingAmount = pendingAmount;
+    }
+
+    public Integer getPendingPayments() {
+        return pendingPayments;
+    }
+
+    public void setPendingPayments(Integer pendingPayments) {
+        this.pendingPayments = pendingPayments;
+    }
+
 }

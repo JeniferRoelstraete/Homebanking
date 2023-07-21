@@ -9,10 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.persistence.Id;
 import javax.transaction.Transactional;
@@ -40,7 +37,7 @@ public class LoanController {
     private TransactionService transactionService;
 
     @Transactional
-    @RequestMapping (path ="/loans", method = RequestMethod.POST)
+    @PostMapping(path ="/loans")
     public ResponseEntity<Object> createLoans(@RequestBody LoanApplicationDTO loanApplicationDTO,Authentication authentication){
         if (loanApplicationDTO.getId() == null ||
                 loanApplicationDTO.getAmount() == null ||
@@ -49,7 +46,7 @@ public class LoanController {
                 loanApplicationDTO.getPayments() <= 0 ||
                 loanApplicationDTO.getDestinationAccount().isBlank()) {
             return new ResponseEntity<>("Missing data", HttpStatus.FORBIDDEN);
-        }
+        } //desglosarlo
 
         Loan loan = loanService.findById(loanApplicationDTO.getId());
 
@@ -77,8 +74,8 @@ public class LoanController {
             return new ResponseEntity<>("Destination account does not belong to client accounts", HttpStatus.FORBIDDEN);
         }
 
-        ClientLoan newLoan = new ClientLoan(client, loan, loanApplicationDTO.getAmount() * 120/100, loanApplicationDTO.getPayments());
-        Transaction newTransaction = new Transaction(TransactionType.CREDITO, loanApplicationDTO.getAmount(), LocalDateTime.now(), loan.getName() + " loan approved");
+        ClientLoan newLoan = new ClientLoan(client, loan, loanApplicationDTO.getAmount() * (1 + (double) loan.getInterestRate() /100), loanApplicationDTO.getPayments());
+        Transaction newTransaction = new Transaction(TransactionType.CREDITO, loanApplicationDTO.getAmount(), LocalDateTime.now(), loan.getName() + " loan approved", account.getBalance() + loanApplicationDTO.getAmount());
 
         // Actualizo balance de la cuenta con el monto a recibir del préstamo
         account.setBalance(account.getBalance() + loanApplicationDTO.getAmount());
@@ -94,7 +91,7 @@ public class LoanController {
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
-    @RequestMapping("/loans")
+    @GetMapping("/loans")
     public List<LoanDTO> getLoans() {
        return loanService.findAll();
     }

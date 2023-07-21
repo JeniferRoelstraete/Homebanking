@@ -10,4 +10,5 @@ import javax.persistence.Id;
 
 @RepositoryRestResource
 public interface LoanRepository extends JpaRepository <Loan, Long> {
+
 }

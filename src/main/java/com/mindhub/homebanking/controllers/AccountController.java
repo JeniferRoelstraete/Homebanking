@@ -4,6 +4,7 @@ import com.mindhub.homebanking.Services.AccountService;
 import com.mindhub.homebanking.Services.ClientService;
 import com.mindhub.homebanking.dtos.AccountDTO;
 import com.mindhub.homebanking.models.Account;
+import com.mindhub.homebanking.models.AccountType;
 import com.mindhub.homebanking.models.Client;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -11,9 +12,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
+import javax.transaction.Transactional;
 import java.time.LocalDate;
 import java.util.List;
-import java.util.stream.Collectors;
+
+import static com.mindhub.homebanking.utils.AccountUtils.getAccountNumber;
 
 @RestController
 @RequestMapping("/api")
@@ -25,18 +28,19 @@ public class AccountController {
     @Autowired
     private ClientService clientService;
 
-    @RequestMapping("/accounts")
+    @GetMapping("/accounts")
     public List<AccountDTO> getAccounts() {
         return accountService.findAll();
     }
 
-    @RequestMapping("/accounts/{id}")
+    @GetMapping("/accounts/{id}")
     public AccountDTO getAccount(@PathVariable Long id) {
         return accountService.findById(id);
     }
 
-    @RequestMapping(path = "/clients/current/accounts" , method = RequestMethod.POST)
-    public ResponseEntity<Object> createAccount(Authentication authentication) {
+    @Transactional
+    @PostMapping(path = "/accounts")
+    public ResponseEntity<Object> createAccount(@RequestParam AccountType type, Authentication authentication) {
        Client client = clientService.findByEmail(authentication.getName());
 
        if (client.getAccounts().size() == 3) {
@@ -46,10 +50,10 @@ public class AccountController {
 
        String accountNumber; //declaro una variable para que en bucle cambie su valor
        do {
-           accountNumber = "VIN-" + Account.getRandomNumber(1, 99999999); // genera un numero aletario y la guardo en el la variable
+           accountNumber = getAccountNumber(); // genera un numero aletario y la guardo en el la variable
        } while (accountService.findByNumber(accountNumber) != null); //busca la cuenta por numero y se fija si este numero aletario ya existe
 
-       Account account = new Account(accountNumber, LocalDate.now(), 0); //si no existe la creo
+        Account account = new Account(accountNumber, type, LocalDate.now(), 0);
 
        client.addAccount(account);
        accountService.save(account);
@@ -57,4 +61,15 @@ public class AccountController {
        return new ResponseEntity<>(HttpStatus.CREATED); //201
     }
 
+    @Transactional
+    @DeleteMapping(path = "/accounts/{accountNumber}")
+    public ResponseEntity<Object> deleteAccount(@PathVariable String accountNumber) {
+        try {
+            accountService.deleteByNumber(accountNumber);
+        } catch (Exception e) {
+            return new ResponseEntity<>(e, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 }

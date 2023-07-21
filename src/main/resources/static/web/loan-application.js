@@ -10,7 +10,8 @@ const app = createApp({
             loanTypeId: "",
             destinationAccountNumber: "",
             amount: "",
-            selectedPayment: ""
+            selectedPayment: "",
+            interestRate: 0,
         }
     },
     created() {
@@ -36,8 +37,10 @@ const app = createApp({
             })
         },
         updatePaymentsList() {
-            this.payments = this.loanTypes.find(loan => loan.id === this.loanTypeId).payments
-            this.selectedPayment = ""
+            const selectedLoan = this.loanTypes.find(loan => loan.id === this.loanTypeId)
+            this.payments = selectedLoan.payments
+            this.interestRate = selectedLoan.interestRate
+            this.selectedPayment = 0
         },
         createLoanAlert() {
             if (!this.loanTypeId || !this.destinationAccountNumber || +this.amount === 0 || !this.selectedPayment) {
@@ -68,7 +71,7 @@ const app = createApp({
             .then(response => {
                 alertify.set('notifier','position', 'bottom-center')
                 alertify.notify('Loan applied succesfully!', 'success')
-                this.loanTypeId = this.destinationAccountNumber = this.amount = this.selectedPayment = ""
+                this.loanTypeId = this.destinationAccountNumber = this.amount = this.selectedPayment = this.interestRate = "" 
                 this.loadAccounts()
             })
             .catch((error) => {
@@ -87,9 +90,6 @@ const app = createApp({
                             alertify.alert('Error signing out', error.message)
                         }
                     })
-                 },
-        applyLoan() {
-
-        } //mensaje qe salio bien y y redicional
+        },
     }
 }).mount('#app')

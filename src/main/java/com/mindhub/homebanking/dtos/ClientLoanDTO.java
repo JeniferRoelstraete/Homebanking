@@ -14,12 +14,21 @@ public class ClientLoanDTO {
 
     private Integer payment;
 
+    private Integer interestRate;
+
+    private double pendingAmount;
+
+    private Integer pendingPayments;
+
     public ClientLoanDTO(ClientLoan clientLoan) {
         this.clientLoanId = clientLoan.getId();
         this.loanId = clientLoan.getLoan().getId();
         this.loanName = clientLoan.getLoan().getName();
         this.amount = clientLoan.getAmount();
         this.payment = clientLoan.getPayment();
+        this.interestRate = clientLoan.getLoan().getInterestRate();
+        this.pendingAmount = clientLoan.getPendingAmount();
+        this.pendingPayments = clientLoan.getPendingPayments();
     }
 
     public long getClientLoanId() {
@@ -40,5 +49,17 @@ public class ClientLoanDTO {
 
     public Integer getPayment() {
         return payment;
+    }
+
+    public double getPendingAmount() {
+        return pendingAmount;
+    }
+
+    public Integer getPendingPayments() {
+        return pendingPayments;
+    }
+
+    public Integer getInterestRate() {
+        return interestRate;
     }
 }

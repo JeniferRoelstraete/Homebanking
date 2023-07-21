@@ -6,6 +6,16 @@
     <title>Document</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
     <link rel="stylesheet" href="./styles.css">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/alertify.min.css" />
+    <!-- Default theme -->
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/default.min.css" />
+    <!-- Semantic UI theme -->
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/semantic.min.css" />
+    <!-- Bootstrap theme -->
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/bootstrap.min.css" />
+
 </head>
 <body id="app">
     <header>
@@ -39,47 +49,69 @@
           </nav>
     </header>
     <main class="pt-3">
-        <h2 class="py-2 mx-4 mt-3 fondo-color text-center rounded-2">Credit cards</h2>
+        <h2 class="py-2 mx-4 mt-3 fondo-color text-center rounded-2 width-90">Credit cards</h2>
         <div class="d-flex flex-wrap justify-content-center my-5 py-5 gap-5">
-            
-            <div class="plastic-card plastic-card-shadow" :class="{'gold-card-color': card.color === 'GOLD', 'silver-card-color': card.color === 'SILVER', 'titanium-card-color': card.color === 'TITANIUM'}" v-for="card of creditCards"> 
+            <div v-for="card of creditCards">
+              <div class="plastic-card plastic-card-shadow" :class="{'gold-card-color': card.color === 'GOLD', 'silver-card-color': card.color === 'SILVER', 'titanium-card-color': card.color === 'TITANIUM'}"> 
                 <div class="visa_logo">
-                    <img src="https://raw.githubusercontent.com/muhammederdem/credit-card-form/master/src/assets/images/visa.png" alt="">
+                  <img src="https://raw.githubusercontent.com/muhammederdem/credit-card-form/master/src/assets/images/visa.png" alt="">
                 </div>
                 <div class="visa_info">
-                    <img src="https://raw.githubusercontent.com/muhammederdem/credit-card-form/master/src/assets/images/chip.png" alt="">
-                    <p>{{card.number}}  <span class="card-cvv">{{card.cvv}}</span></p>
+                  <img src="https://raw.githubusercontent.com/muhammederdem/credit-card-form/master/src/assets/images/chip.png" alt="">
+                  <p class="mb-0">{{card.number}}</p>
+                  <div class="d-flex justify-content-end me-4"><p class="mb-0 p-0  card-cvv">{{card.cvv}}</p></div>
                 </div>
                 <div class="visa_crinfo">
-                    <p>{{card.thruDate}}</p>
-                    <p>{{card.cardholder}}</p>
+                  <p>{{card.thruDate}}</p>
+                  <p v-show="isPastDue(card.thruDate)" class="redText">PAST DUE</p>
+                  <p>{{card.cardholder}}</p>
                 </div>
-            </div>
+              </div>
+              <div class="text-center mt-2">
+                <button @click="deleteCardAction(card.number)" class="delete-button m-auto">
+                  <svg class="delete-svgIcon" viewBox="0 0 448 512">
+                                    <path d="M135.2 17.7L128 32H32C14.3 32 0 46.3 0 64S14.3 96 32 96H416c17.7 0 32-14.3 32-32s-14.3-32-32-32H320l-7.2-14.3C307.4 6.8 296.3 0 284.2 0H163.8c-12.1 0-23.2 6.8-28.6 17.7zM416 128H32L53.2 467c1.6 25.3 22.6 45 47.9 45H346.9c25.3 0 46.3-19.7 47.9-45L416 128z"></path>
+                                  </svg>
+                </button>
+              </div>
+          </div>
+
             <div>
               <h3 class="ms-4">Benefits of using your card</h3>
               <ul>
                 <li>Do not move from your home and request it 100% online</li> 
                 <li>Podés comprar en cuotas y así planificar tus consumos a tu manera</li>
                 <li>have exclusive benefits in the collection of most prestigious hotels in the world.</li>
-             </ul>
+              </ul>
             </div>
-        </div>
+          </div>
         
 
         <h2 class="py-2 mx-4 mt-3 fondo-color text-center rounded-2">Debit cards</h2>
-        <div class="d-flex flex-wrap justify-content-center my-5 py-5 gap-5">
-            <div class="plastic-card plastic-card-shadow" :class="{'gold-card-color': card.color ==='GOLD', 'silver-card-color': card.color === 'SILVER', 'titanium-card-color': card.color === 'TITANIUM'}" v-for="card of debitCards"> 
+        <div class="d-flex flex-wrap justify-content-center my-5 py-5 gap-5 width-90">
+          <div v-for="card of debitCards">
+            <div class="plastic-card plastic-card-shadow" :class="{'gold-card-color': card.color ==='GOLD', 'silver-card-color': card.color === 'SILVER', 'titanium-card-color': card.color === 'TITANIUM'}"> 
                 <div class="visa_logo">
                     <img src="https://raw.githubusercontent.com/muhammederdem/credit-card-form/master/src/assets/images/visa.png" alt="">
                 </div>
                 <div class="visa_info">
                     <img src="https://raw.githubusercontent.com/muhammederdem/credit-card-form/master/src/assets/images/chip.png" alt="">
-                    <p>{{card.number}} <span class="card-cvv">{{card.cvv}}</span></p>
+                    <p class="mb-0">{{card.number}}</p>
+                    <div class="d-flex justify-content-end me-4"><p class="mb-0 p-0  card-cvv">{{card.cvv}}</p></div>
                 </div>
                 <div class="visa_crinfo">
                     <p>{{card.thruDate}}</p>
+                    <p v-show="isPastDue(card.thruDate)" class="redText">PAST DUE</p>
                     <p>{{card.cardholder}}</p>
                 </div>
+            </div>
+            <div class="mt-2">
+              <button @click="deleteCardAction(card.number)" class="delete-button m-auto">
+                <svg class="delete-svgIcon" viewBox="0 0 448 512">
+                                  <path d="M135.2 17.7L128 32H32C14.3 32 0 46.3 0 64S14.3 96 32 96H416c17.7 0 32-14.3 32-32s-14.3-32-32-32H320l-7.2-14.3C307.4 6.8 296.3 0 284.2 0H163.8c-12.1 0-23.2 6.8-28.6 17.7zM416 128H32L53.2 467c1.6 25.3 22.6 45 47.9 45H346.9c25.3 0 46.3-19.7 47.9-45L416 128z"></path>
+                                </svg>
+              </button>
+            </div>
             </div>
             <div>
               <h3 class="ms-4">Benefits of using your card</h3>
@@ -110,5 +142,6 @@
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
+    <script src="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
     <script src="./cards.js"  ></script>
 </html>

@@ -21,6 +21,8 @@ public class TransactionDTO {
 
     private String destinationAccountNumber;
 
+    private Double currentBalance;
+
     public TransactionDTO() { }
 
     public TransactionDTO(Transaction transaction) {
@@ -29,6 +31,7 @@ public class TransactionDTO {
         this.amount = transaction.getAmount();
         this.date = transaction.getDate();
         this.description = transaction.getDescription();
+        this.currentBalance = transaction.getCurrentBalance();
     }
 
     public TransactionType getType() {
@@ -57,5 +60,9 @@ public class TransactionDTO {
 
     public String getDestinationAccountNumber() {
         return destinationAccountNumber;
+    }
+
+    public Double getCurrentBalance() {
+        return currentBalance;
     }
 }

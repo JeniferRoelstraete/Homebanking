@@ -1,17 +1,6 @@
 package com.mindhub.homebanking;
-
-import com.mindhub.homebanking.models.*;
-import com.mindhub.homebanking.repositories.*;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.Bean;
-import org.springframework.security.crypto.password.PasswordEncoder;
-
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.List;
 
 @SpringBootApplication
 public class HomebankingApplication {
@@ -19,9 +8,10 @@ public class HomebankingApplication {
 		SpringApplication.run(HomebankingApplication.class, args);
 	}
 
-	@Autowired
-	private PasswordEncoder passwordEnconder;
-	@Bean
+
+	/*@Autowired
+	private PasswordEncoder passwordEnconder;*/
+	/*@Bean
 	public CommandLineRunner initData(ClientRepository clientRepository,
 									  AccountRepository accountRepository,
 									  TransactionRepository transactionRepository,
@@ -29,7 +19,7 @@ public class HomebankingApplication {
 									  ClientLoanRepository clientLoanRepository,
 									  CardRepository cardRepository) {
 		return args -> {
-
+*/
 			/*Client client1 = new Client("Melba", "Morel", "melba@mindhub.com", passwordEnconder.encode("3333"));
 			Client client2 = new Client("Juan", "Bili", "jbili@mindhub.com", passwordEnconder.encode("3675"));
  			Client admin = new Client("admin","admin","admin@gmail.com", passwordEnconder.encode("123"));
@@ -108,7 +98,7 @@ public class HomebankingApplication {
 
 			cardRepository.saveAll(List.of(card1,card2,card3));
 */
-		};
+	/*	};
 	}
-
+*/
 }

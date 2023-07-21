@@ -1,7 +1,8 @@
 package com.mindhub.homebanking.models;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -9,6 +10,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
+@Where(clause = "deleted = false")
 public class Account {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO, generator = "native")
@@ -25,13 +27,17 @@ public class Account {
     @JoinColumn(name = "client_id")
     private Client client;
 
-    @OneToMany(mappedBy = "account", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "account", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Set<Transaction> transactions = new HashSet<>();
 
+    private AccountType type;
+
+    private boolean deleted = false;
     public Account() {}
 
-    public Account(String number, LocalDate creationDate, double balance) {
+    public Account(String number, AccountType type, LocalDate creationDate, double balance) {
         this.number = number;
+        this.type = type;
         this.creationDate = creationDate;
         this.balance = balance;
     }
@@ -73,7 +79,7 @@ public class Account {
         this.balance = balance;
     }
 
-    @JsonIgnore
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     public Client getClient() {
         return client;
     }
@@ -90,8 +96,20 @@ public class Account {
         this.transactions = transactions;
     }
 
-    public static int getRandomNumber(int min, int max) {
-        return (int) ((Math.random() * (max - min)) + min);
+    public boolean isDeleted() {
+        return deleted;
+    }
+
+    public void setDeleted(boolean deleted) {
+        this.deleted = deleted;
+    }
+
+    public AccountType getType() {
+        return type;
+    }
+
+    public void setType(AccountType type) {
+        this.type = type;
     }
 }
 

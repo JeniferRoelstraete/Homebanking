@@ -80,7 +80,7 @@
                     <select v-model="selectedPayment" id="paymentSelector" class="form-select">
                         <option v-for="payment of payments" :value="payment">{{payment}}</option>
                     </select>
-                    <p class="mt-2" v-if="amount && selectedPayment">Amount per payment: ${{(amount * 1.2 / selectedPayment).toLocaleString('es-AR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}}</p>
+                    <p class="mt-2" v-if="amount && selectedPayment">Amount per payment (rate: {{interestRate}}%): {{selectedPayment !== 0 ? (amount * (1 + interestRate / 100) / selectedPayment).toLocaleString('es-AR', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) : 0}}</p>
                 </div>
                 <div>
                     <button type="button" @click="createLoanAlert()" class="transaction-button m-0">Apply</button>

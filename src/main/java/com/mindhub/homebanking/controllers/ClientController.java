@@ -4,8 +4,8 @@ import com.mindhub.homebanking.Services.AccountService;
 import com.mindhub.homebanking.Services.ClientService;
 import com.mindhub.homebanking.dtos.ClientDTO;
 import com.mindhub.homebanking.models.Account;
+import com.mindhub.homebanking.models.AccountType;
 import com.mindhub.homebanking.models.Client;
-import com.mindhub.homebanking.repositories.AccountRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,8 +13,11 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
+import javax.transaction.Transactional;
 import java.time.LocalDate;
 import java.util.List;
+
+import static com.mindhub.homebanking.utils.NumberUtils.getRandomNumber;
 
 @RestController
 @RequestMapping("/api")
@@ -30,23 +33,24 @@ public class ClientController {
     @Autowired
     private AccountService accountService;
 
-    @RequestMapping("/clients") //api/clients
+    @GetMapping("/clients") //api/clients
     public List<ClientDTO> getClients() {
         return clientService.findAll();
     }
 
-    @RequestMapping("/clients/{id}") //api/clients/id
+    @GetMapping("/clients/{id}") //api/clients/id
     public ClientDTO getClient(@PathVariable Long id){
         return clientService.getClientById(id);
     }
 
-    @RequestMapping("/clients/current")
+    @GetMapping("/clients/current")
     public ClientDTO getCurrentClient(Authentication authentication) {
         return clientService.findDTOByEmail(authentication.getName());
     }
 
             //un registro nuevo,cliente nuevo
-    @RequestMapping(path = "/clients", method = RequestMethod.POST)
+    @Transactional
+    @PostMapping(path = "/clients")
     public ResponseEntity<Object> register(@RequestParam String firstName,
                                            @RequestParam String lastName,
                                            @RequestParam String email,
@@ -60,12 +64,12 @@ public class ClientController {
             return new ResponseEntity<>("Email already in use", HttpStatus.FORBIDDEN);
         }                                      //el email ya esta en uso
 
-        String accountNumber; //declaro una variable para que en bucle cambie su valor
+        String accountNumber;
         do {
-            accountNumber = "VIN-" + Account.getRandomNumber(1, 99999999); // genera un numero aletario y la guardo en el la variable
-        } while (accountService.findByNumber(accountNumber) != null); //busca la cuenta por numero y se fija si este numero aletario ya existe
+            accountNumber = "VIN-" + getRandomNumber(1, 99999999);
+        } while (accountService.findByNumber(accountNumber) != null);
 
-        Account newAccount = new Account(accountNumber, LocalDate.now(), 0);
+        Account newAccount = new Account(accountNumber, AccountType.SAVINGS_ACCOUNT, LocalDate.now(), 0);
         Client newClient = new Client(firstName, lastName, email, passwordEncoder.encode(password));
 
         newClient.addAccount(newAccount);

@@ -38,21 +38,29 @@ const app = createApp ({
             })
         },
         createAccount(){
-            axios.post('http://localhost:8080/api/clients/current/accounts')
-            .then(response => {
-                    this.loadAccounts()
-            })
-            .catch((error) => {
-                if (error.response && error.response.data) {
-                    alertify.alert('Error creating account', error.response.data)
-                } else {
-                    alertify.alert('Error creating account', error.message)
-                }
-            })
+            location.href="./create-account.html"
         },
         canCreate() {
             return this.accounts.length < 3
-        }
+        },
+        deleteAccountAction(accountNumber) {
+            alertify.confirm(
+                'Are you sure that you want to delete this account?',    // Title
+                `Account Number: ${accountNumber}`,                         // Message
+                () => this.deleteAccount(accountNumber),                    // Confirm    
+                () => {})                                             // Cancel
+        },
+        deleteAccount(accountNumber) {
+            axios.delete(`http://localhost:8080/api/accounts/${accountNumber}`)
+            .then(response => this.loadAccounts())
+            .catch((error) => {
+                if (error.response && error.response.data) {
+                    alertify.alert('Error deleting account', error.response.data)
+                } else {
+                    alertify.alert('Error deleting account', error.message)
+                }
+            })
+        },
     },
 })
 .mount('#app')

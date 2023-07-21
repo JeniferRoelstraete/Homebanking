@@ -7,9 +7,11 @@ import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.web.FilterChainProxy;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.WebAttributes;
 import org.springframework.security.web.authentication.logout.HttpStatusReturningLogoutSuccessHandler;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -54,6 +56,12 @@ public class WebAuthorization {
 
                 .antMatchers("/api/loans").hasAuthority("CLIENT")
 
+                .antMatchers("/api/transactions").hasAuthority("CLIENT")
+
+                .antMatchers("/api/clientLoans").hasAuthority("CLIENT")
+
+                .antMatchers(HttpMethod.POST, "/api/process-payment").permitAll()
+
                 .antMatchers(HttpMethod.POST, "/api/loans").hasAuthority("CLIENT")
 
                 .antMatchers(HttpMethod.POST, "/api/clients/current/cards").hasAuthority("CLIENT")
@@ -61,6 +69,20 @@ public class WebAuthorization {
                 .antMatchers(HttpMethod.POST, "/api/client/current/transactions").hasAuthority("CLIENT")
 
                 .antMatchers(HttpMethod.POST, "/api/client/current/accounts").hasAuthority("CLIENT")
+
+                .antMatchers(HttpMethod.POST, "/api/accounts").hasAuthority("CLIENT")
+
+                .antMatchers(HttpMethod.DELETE, "/api/cards/{cardNumber}").hasAuthority("CLIENT")
+
+                .antMatchers(HttpMethod.DELETE, "/api/accounts/{accountNumber}").hasAuthority("CLIENT")
+
+                .antMatchers("/web/pay-dues.html").hasAuthority("CLIENT")
+
+                .antMatchers("/web/pay-dues.js").hasAuthority("CLIENT")
+
+                .antMatchers("/web/create-account.html").hasAuthority("CLIENT")
+
+                .antMatchers("/web/create-account.js").hasAuthority("CLIENT")
 
                 .antMatchers("/web/account.html").hasAuthority("CLIENT")
 
@@ -119,7 +141,7 @@ public class WebAuthorization {
         // if logout is successful, just send a success response
         //si el logout es exitoso, envia una mensaje de respuesta de exito
         http.logout().logoutSuccessHandler(new HttpStatusReturningLogoutSuccessHandler());
-
+        http.cors();
         return http.build();
     }
 
