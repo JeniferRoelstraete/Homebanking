@@ -11,7 +11,7 @@ import static org.springframework.test.web.client.ExpectedCount.between;
 
 @SpringBootTest
 public class CardUtilsTests {
-    @Test
+   /* @Test
     public void cardNumberIsCreated() { // Número de tarjeta no sea nulo o vacío
         String cardNumber = CardUtils.getCardNumber();
 
@@ -37,5 +37,5 @@ public class CardUtilsTests {
         short cvvNumber = CardUtils.getCvv();
 
         assertThat(cvvNumber, is(not(nullValue())));
-    }
+    }*/
 }

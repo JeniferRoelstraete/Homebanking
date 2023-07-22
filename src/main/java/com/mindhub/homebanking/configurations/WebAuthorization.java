@@ -141,6 +141,7 @@ public class WebAuthorization {
         // if logout is successful, just send a success response
         //si el logout es exitoso, envia una mensaje de respuesta de exito
         http.logout().logoutSuccessHandler(new HttpStatusReturningLogoutSuccessHandler());
+
         http.cors();
         return http.build();
     }
